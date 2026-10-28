@@ -3,52 +3,86 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>الامتحانات</title>
+<title>منصة الامتحانات</title>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#eef2f6;--card:#fff;--ink:#14213d;--mute:#5b6678;--line:#d5dce6;--acc:#1b5fa8;--ok:#1f8a4c;--okbg:#e4f5ec;--bad:#c0392b;--badbg:#fbe9e7}
 @media(prefers-color-scheme:dark){:root{--bg:#0f1624;--card:#18223a;--ink:#e8edf6;--mute:#9aa6bd;--line:#2c3a58;--acc:#5aa2e8;--ok:#4cc585;--okbg:#14302350;--bad:#ef7f72;--badbg:#3a181850}}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:Tajawal,Tahoma,sans-serif;line-height:1.8;font-size:17px}
-.wrap{max-width:720px;margin:0 auto;padding:20px 16px 48px}
+.wrap{max-width:760px;margin:0 auto;padding:20px 16px 48px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}
 h1{font-size:26px;margin:0 0 6px;font-weight:800}
-p.sub{color:var(--mute);margin:0 0 18px}
+p.sub{color:var(--mute);margin:0 0 14px}
 .bar{height:8px;background:var(--line);border-radius:8px;overflow:hidden;margin-bottom:6px}
 .bar i{display:block;height:100%;background:var(--acc);width:0;transition:width .3s}
-.meta{display:flex;justify-content:space-between;color:var(--mute);font-size:14px;margin-bottom:14px}
+.meta{display:flex;justify-content:space-between;align-items:center;color:var(--mute);font-size:14px;margin-bottom:14px}
 .q{font-size:20px;font-weight:700;margin:0 0 16px}
 .opt{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:right;background:var(--card);color:var(--ink);border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:10px;font:inherit;cursor:pointer}
 .opt:hover{border-color:var(--acc)}
-.opt:focus-visible,.btn:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.opt:focus-visible,.btn:focus-visible,.tabb:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
 .opt b{flex:none;width:28px;height:28px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;font-size:14px}
-.opt.sel{border-color:var(--acc);background:color-mix(in srgb,var(--acc) 10%,var(--card))}
-.opt.sel b{background:var(--acc);color:#fff;border-color:var(--acc)}
 .opt.ok{border-color:var(--ok);background:var(--okbg)}
 .opt.no{border-color:var(--bad);background:var(--badbg)}
-.row{display:flex;gap:10px;margin-top:16px}
+.opt:disabled{color:var(--ink);cursor:default}
+.opt:disabled:hover{border-color:var(--line)}
+.opt.ok:disabled:hover{border-color:var(--ok)}
+.opt.no:disabled:hover{border-color:var(--bad)}
+.row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
 .btn{font:inherit;font-weight:700;border:0;border-radius:10px;padding:11px 22px;cursor:pointer;background:var(--acc);color:#fff}
 .btn.alt{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn.sm{padding:4px 12px;font-size:14px}
 .btn:disabled{opacity:.4;cursor:not-allowed}
 .score{font-size:54px;font-weight:800;margin:6px 0}
 .rev{border-top:1px solid var(--line);padding-top:14px;margin-top:14px}
 .rev .q{font-size:17px;margin-bottom:8px}
 .tag{font-size:14px;margin:2px 0}
-.good{color:var(--ok)}.bad{color:var(--bad)}
-.opt:disabled{color:var(--ink);cursor:default}
-.opt:disabled:hover{border-color:var(--line)}
-.opt.ok:disabled:hover{border-color:var(--ok)}
-.opt.no:disabled:hover{border-color:var(--bad)}
+.good{color:var(--ok)}.bad{color:var(--bad)}.warn{color:#b7791f}
 .fb{font-weight:700;margin:6px 0 0;min-height:1.8em}
 .hide{display:none}
+input,textarea,select{display:block;width:100%;font:inherit;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);margin-top:12px}
+input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.ex{border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px}
+.ex .q{font-size:18px;margin-bottom:4px}
+.ex .sub{margin:0 0 4px;font-size:15px}
+.small{font-size:13px;color:var(--mute);margin:10px 0 0}
+.tabs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:14px;border-bottom:1px solid var(--line)}
+.tabb{font:inherit;font-weight:700;background:transparent;color:var(--mute);border:0;border-bottom:3px solid transparent;padding:6px 12px;cursor:pointer}
+.tabb.on{color:var(--acc);border-color:var(--acc)}
+.chat{height:340px;overflow-y:auto;border:1px solid var(--line);border-radius:12px;padding:10px;margin-top:6px}
+.msg{background:var(--bg);border-radius:10px;padding:6px 10px;margin-bottom:8px}
+.msg.me{background:color-mix(in srgb,var(--acc) 14%,var(--card))}
+.msg b{font-size:14px;color:var(--acc)}
+.msg small{color:var(--mute);margin-inline-start:8px}
+.msg p{margin:2px 0;word-break:break-word}
+.lbr{display:flex;gap:12px;padding:10px;border-bottom:1px solid var(--line)}
+.lbr.me{background:color-mix(in srgb,var(--acc) 12%,var(--card))}
+.lbr .n{flex:none;width:36px;font-weight:800}
+.lbr .u{flex:1}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:15px;margin-top:12px}
+th,td{padding:8px;border-bottom:1px solid var(--line);text-align:right}
 </style>
 </head>
 <body>
 <div class="wrap">
- <div id="start" class="card">
-  <h1>الامتحانات</h1>
-  <p class="sub">اختار الامتحان اللي عايز تحله</p>
-  <div id="list"></div>
+ <div id="auth" class="card hide">
+  <h1>منصة الامتحانات</h1>
+  <p class="sub" id="at">سجّل دخولك عشان نتايجك تتحفظ في حسابك</p>
+  <div class="tabs" id="rt"><button class="tabb" data-r="mora">MORA</button><button class="tabb" data-r="adm">أدمن</button><button class="tabb on" data-r="st">طالب</button></div>
+  <div class="row" id="mm" style="margin-top:0"><button class="btn" id="tl">دخول</button><button class="btn alt" id="tr">حساب جديد</button></div>
+  <input id="un" placeholder="اسمك" autocomplete="username" maxlength="30">
+  <input id="pw" type="password" placeholder="الباسورد (6 حروف على الأقل)" autocomplete="current-password">
+  <p class="tag bad" id="am"></p>
+  <button class="btn" id="ab">دخول</button>
+  <p class="small hide" id="first"><a href="#" id="fl" style="color:var(--acc)">أول مرة؟ أنشئ حساب المالك</a></p>
+  <p class="small">احفظ الباسورد كويس، مفيش استرجاع تلقائي لو اتنسي.</p>
+ </div>
+ <div id="main" class="card hide">
+  <div class="meta"><span id="hi"></span><button class="btn alt sm" id="out">خروج</button></div>
+  <p class="tag bad" id="ban"></p>
+  <div class="tabs" id="nav"></div>
+  <div id="pane"></div>
  </div>
  <div id="quiz" class="card hide">
   <div class="meta"><span id="cnt"></span><span id="sc"></span></div>
@@ -56,114 +90,233 @@ p.sub{color:var(--mute);margin:0 0 18px}
   <p class="q" id="qt"></p>
   <div id="opts"></div>
   <p class="fb" id="fb"></p>
-  <div class="row">
-   <button class="btn alt" id="prev">السابق</button>
-   <button class="btn" id="next">التالي</button>
-  </div>
+  <div class="row"><button class="btn alt" id="prev">السابق</button><button class="btn" id="next">التالي</button></div>
  </div>
  <div id="res" class="card hide"></div>
 </div>
 <script>
-const L=["أ","ب","ج","د"];
-const EX=[{t:"محاسبة التكاليف - المحاضرة الأولى",Q:[
-{q:"ما هو التعريف الأساسي لمصطلح \"محاسبة التكاليف\" بناءً على محتوى المحاضرة؟",o:["سجل لحسابات العملاء والموردين في المنشأة.","نظام لإنتاج معلومات محاسبية تستخدم في اتخاذ القرارات بواسطة متخذي القرارات ومستخدمي المعلومات.","قائمة مالية تحدد صافي الربح والخسارة في نهاية السنة المالية.","نظام لتقييم أداء الإدارة العليا فقط."],a:1},
-{q:"وفقاً للتفرقة بين المفاهيم في المحاضرة الأولى، كيف يتم تعريف \"المصروف\"؟",o:["التكلفة التي لم تستنفذ بعد.","النفقات التي تم إنفاقها في الماضي ولا يمكن تعديلها.","اللي استفدت بيه.","العائد الضائع لعدم استخدام أفضل بديل."],a:2},
-{q:"ما هو التصنيف الصحيح لعناصر تكاليف الموارد المباشرة في العملية الإنتاجية؟",o:["أجور، مواد، ومصروفات.","أصول ثابتة ومتداولة.","تكاليف غارقة وتكاليف تفاضلية.","إيرادات ومصروفات نقدية."],a:0},
-{q:"أي من الخيارات التالية يعتبر مثالاً صحيحاً لـ \"أجور غير مباشرة\"؟",o:["أجور عمال الإنتاج على خط التجميع المباشر.","رواتب المشرفين والصيانة العامة للآلات وإيجار المصنع والكهرباء العامة.","تكلفة المواد الخام الأساسية الداخلة في المنتج.","أجور العمالة المؤقتة المرتبطة مباشرة بالوحدة المنتجة."],a:1},
-{q:"كيف تتصرف \"التكاليف الثابتة\" عند تغير حجم النشاط الإنتاجي؟",o:["تتغير طردياً مع حجم النشاط (زيادة ونقصاناً).","تتغير عكسياً مع حجم النشاط.","لا تتغير بتغير حجم النشاط.","تختفي تماماً عند توقف الإنتاج."],a:2},
-{q:"ما هي المعادلة المحاسبية الأساسية للأصول الواردة في المحاضرة؟",o:["الأصول = الخصوم + حقوق الملكية","الأصول = الإيرادات - التكاليف","الأصول = الأرباح / إجمالي المبيعات","الأصول = التكاليف المباشرة + التكاليف المتغيرة"],a:0},
-{q:"ماذا يقصد بمفهوم \"تكلفة الفرصة البديلة\" حسب تصنيفات التكاليف في المحاضرة؟",o:["التكاليف التي حصلت في الماضي ولا يمكن تعديلها.","العائد الضائع لعدم استخدام أفضل بديل من البدائل الموجودة.","النفقات الخارجية التي تتعهد المنشأة بدفعها مستقبلاً.","التكاليف التي لم تستنفذ بعد."],a:1},
-{q:"ما هي سمة \"التكاليف الغارقة\" كما وردت في المحاضرة؟",o:["تختلف من بديل لآخر وتؤخذ في الاعتبار عند اتخاذ القرار.","حصلت في الماضي ولا يمكن تعديلها أو تغييرها.","تتغير كلياً بتغير حجم النشاط الإنتاجي.","تمثل المواد الخام غير المستخدمة حتى نهاية الفترة."],a:1},
-{q:"فيما يتعلق بالالتزام بالمعايير، ما هو الفرق الجوهري بين المحاسبة المالية ومحاسبة التكاليف؟",o:["المحاسبة المالية تشتغل بمعايير المحاسبة، بينما محاسبة التكاليف لا تلتزم بمعايير المحاسبة.","محاسبة التكاليف تلتزم بمعايير صارمة، بينما المحاسبة المالية اختيارية.","كلاهما يلتزمان بنفس المعايير المحاسبية الدولية دون اختلاف.","المحاسبة المالية لا تعترف بالمصروفات نهائياً."],a:0},
-{q:"أي مما يلي يُعد مثالاً على \"تكاليف متغيرة\"؟",o:["إيجار المصنع ومرتبات الإدارة.","إهلاك الآلات والمباني والتأمين.","المواد الخام، تكاليف التغليف، وأجور عمال الإنتاج بالساعة أو القطعة.","رواتب المشرفين والصيانة العامة."],a:2},
-{q:"كيف تم تعريف \"التكاليف غير المستنفذة\"؟",o:["هي التكاليف التي تم إنفاقها بالفعل ولم يعد لها منفعة مستقبلية.","هي التكاليف التي لم تستنفذ بعد وتحتفظ بمنفعتها المستقبلية.","هي النفقات النقدية الخارجة عن المنشأة فوراً.","هي التكاليف التي تختلف من بديل لآخر."],a:1},
-{q:"ما هو التوصيف الدقيق لـ \"التكلفة النقدية أو المنفقة\"؟",o:["هي العائد الضائع لعدم استخدام بديل.","هي النفقات الخارجية عن المنشأة والتعاهد بدفعها مستقبلاً.","هي المواد الخام غير المستخدمة في المخازن.","هي إهلاك الأصول الثابتة سنوياً."],a:1},
-{q:"ما هو تعريف \"التكاليف التفاضلية\"؟",o:["التكاليف التي حصلت في الماضي ولا يمكن تغييرها.","التكاليف التي لا تتغير مهما تغير حجم النشاط.","التكاليف التي تختلف من بديل لآخر وتؤخذ في الاعتبار عند اتخاذ القرار.","تكلفة المواد غير المباشرة اللازمة للإنتاج."],a:2},
-{q:"ماذا تعني كلمة \"التكلفة\" وفقاً للتقسيم الأولي في المحاضرة؟",o:["اللي استفدت بيه بالفعل.","اللي لسة مستفدتش بيه.","الإيرادات المحققة بالكامل.","الأرباح المحتجزة للمنشأة."],a:1},
-{q:"تحت أي بند تقع أمثلة مثل: (إيجار المصنع، مرتبات الإدارة، التأمين، إهلاك الآلات والمباني)؟",o:["التكاليف المتغيرة","التكاليف المباشرة","التكاليف الثابتة","التكاليف الغارقة"],a:2}
-
-]},
-{t:"مبادئ التسويق - المحاضرة الأولى",Q:[
-{q:"ما هو الوصف الأدق لتطور التبادل في مراحله التاريخية الأولى؟",o:["التبادل الحديث ثم المقايضة ثم الإنتاج الذاتي","الإنتاج الذاتي ثم نظام المقايضة ثم التبادل الحديث (السوق)","نظام المقايضة ثم الإنتاج الذاتي ثم التبادل الرقمي","التبادل الحديث المباشر دون مراحل تاريخية سابقة"],a:1},
-{q:"كيف يُعرّف التسويق من خلال دوره الأساسي في ربط طرفين رئيسيين؟",o:["جسر يوصل موارد الشركة بحاجات المستهلك","نظام يفرض المنتجات الجاهزة على المستهلك قسراً","وسيلة لتقليل الإنتاج وزيادة التكلفة التشغيلية","أداة لتقييد حركة التجارة والتبادل المحلي"],a:0},
-{q:"ما هي الخطوة الأولى والأساسية في خطوات العملية التسويقية؟",o:["تحديد الأسعار المرتفعة للمنتجات الجديدة","دراسة احتياجات العملاء (حاجات المستهلك)","زيادة خطوط الإنتاج بشكل عشوائي","الإعلان المكثف على منصات التواصل الاجتماعي"],a:1},
-{q:"بماذا يختلف مفهوم «البيع» عن مفهوم «التسويق» من حيث التصور الوظيفي؟",o:["البيع مفهوم وقائي والتسويق مفهوم علاجي","البيع مفهوم علاجي والتسويق مفهوم وقائي","البيع يركز على رضاء العملاء والتسويق يركز على التخلص من المخزون","كلاهما لهما نفس التصور الوظيفي تماماً بدون أي فرق"],a:1},
-{q:"كيف يتحقق النجاح والهدف في مفهوم «البيع» التقليدي؟",o:["ببناء علاقات طويلة الأجل ورضا المستهلك المستدام","بزيادة محرك البيع (المبيعات) والتخلص من السلع","بدراسة السلوك النفسي والاجتماعي للعميل بدقة","بتخفيض حجم الإنتاج لأدنى مستوى ممكن"],a:1},
-{q:"ما هي الأهداف الثلاثة الأساسية للتسويق المذكورة في المحاضرة؟",o:["الاستيراد، التصدير، التخزين","الاحتكار، رفع الأسعار، تقليل المنافسة","البقاء والاستقرار، الربح، النمو","الدعاية، التغليف، النقل السريع"],a:2},
-{q:"في أي مرحلة من التطور التاريخي للتسويق سادت مقولة: «المنتج الجيد يبيع نفسه»؟",o:["المرحلة الأولى: التوجه نحو الإنتاج (١٩٢٠)","المرحلة الثانية: التوجه نحو البيع (١٩٥٠)","المرحلة الثالثة: التوجه نحو العميل (التسويق الحديث)","مرحلة التجارة الإلكترونية المعاصرة"],a:0},
-{q:"ما هو الحدث والظاهرة الرئيسية التي ظهرت في المرحلة الثانية (التوجه نحو البيع عام ١٩٥٠)؟",o:["نقص حاد في الإنتاج وعجز عن تلبية الطلبات","تساوي حجم الإنتاج مع حجم الطلب في السوق","مقاومة المستهلك وزيادة حجم الإنتاج عن الطلب","اختفاء الإعلانات الترويجية تماماً من الأسواق"],a:2},
-{q:"ما هي العلاقة بين حجم الإنتاج وحجم الطلب في «المرحلة الأولى» (التوجه نحو الإنتاج)؟",o:["حجم الإنتاج أكبر من حجم الطلب","حجم الإنتاج أقل من حجم الطلب","حجم الإنتاج يساوي حجم الطلب تماماً","لا توجد أي علاقة بين الإنتاج والطلب"],a:1},
-{q:"ما هي العلاقة بين حجم الإنتاج وحجم الطلب في «المرحلة الثانية» (التوجه نحو البيع)؟",o:["حجم الإنتاج أكبر من حجم الطلب","حجم الإنتاج أقل من حجم الطلب","حجم الإنتاج يساوي حجم الطلب تماماً","الإنتاج متوقف والطلب في أعلى مستوياته"],a:0},
-{q:"ما هي العلاقة بين حجم الإنتاج وحجم الطلب في «المرحلة الثالثة» (التوجه نحو العميل/التسويق)؟",o:["حجم الإنتاج أقل من حجم الطلب","حجم الإنتاج أكبر من حجم الطلب","حجم الإنتاج يساوي حجم الطلب","انعدام الطلب بشكل كامل"],a:2},
-{q:"ماذا تعبر عبارة «الزبون بيحب يشتري مش بيحب يتباعله» التي تميز المرحلة الثالثة؟",o:["تفضيل العميل للشراء بناءً على تلبية حاجاته واختياره الحر لا فرض المنتجات عليه","إجبار العميل على الشراء بالقوة الجبرية والإعلانات المضللة","تفضيل العميل للإنتاج الذاتي بدلاً من الشراء من السوق","عزوف العملاء عن شراء السلع المعنوية والخدمية"],a:0},
-{q:"كيف تُميّز بين «السلعة» و«الخدمة» ضمن عنصر «المنتج» في المزيج التسويقي؟",o:["السلعة شيء معنوي غير ملموس والخدمة شيء مادي ملموس","السلعة شيء مادي ملموس بينما الخدمة شيء معنوي غير ملموس","السلعة لا تشبع حاجات العميل بينما الخدمة تشبعها وحدها","لا يوجد أي فرق جوهري بين السلعة والخدمة في التسويق"],a:1},
-{q:"ما هو دور «المكان» في المزيج التسويقي كما ورد في المحاضرة؟",o:["تخزين المنتجات لفترات طويلة دون بيعها","كل الأنشطة الخاصة بالنقل من المصنع للمستهلك، وكلما سهل الوصول زاد البيع","رفع تكلفة النقل لزيادة سعر السلعة النهائي","حصر بيع المنتجات في المصانع فقط وعدم توزيعها"],a:1},
-{q:"كيف يُعرّف «السعر» من منظور العميل ومنظور الشركة في المزيج التسويقي؟",o:["للعميل هو القيمة التي يتحملها لتحقيق احتياجه، وللشركة هو القيمة التي تحقق الربح","للعميل هو عبء مالي بلا فائدة، وللشركة هو وسيلة لخسارة العملاء","سعر التكلفة البحتة دون أي هامش ربحي للطرفين","قيمة وهمية لا علاقة لها بالربح أو احتياج العميل"],a:0},
-{q:"ما هو التصور الوظيفي لمفهوم «التسويق» في مواجهة المشكلات التجارية؟",o:["تصور علاجي يتعامل مع المشكلة بعد وقوعها","تصور وقائي يمنع المشكلات ويستبق حاجات العملاء","تصور عشوائي يعتمد على الحظ والمصادفة","تصور تدميري يلغي المنافسة في السوق"],a:1},
-{q:"في أي عام تقريباً ظهرت المرحلة الأولى (التوجه نحو الإنتاج) في التطور التاريخي للتسويق؟",o:["عام ١٩٥٠","عام ١٩٢٠","عام ٢٠٠٠","عام ١٩٨٠"],a:1},
-{q:"أي مما يلي يمثل الأهداف الثلاثة الأساسية للتسويق بترتيبها الصحيح؟",o:["الربح، الخسارة، الإفلاس","البقاء والاستقرار، الربح، النمو","الترويج، التسعير، التوزيع فقط","الإنتاج، التخزين، التوزيع المحلي"],a:1},
-{q:"ماذا يقصد بـ «البعد المادي» في تصميم القيمة للمنتج؟",o:["التركيز على الخصائص المحسوسة والفيزيائية للسلعة","المشاعر والعواطف النفسية المجردة للعميل","الإعلانات التلفزيونية والترويج الخارجي","العلاقات العامة والخدمات المجتمعية للشركة"],a:0},
-{q:"كيف تتعامل الشركات مع «البعد الرمزي» وتحديد القيمة التسويقية؟",o:["من خلال تجاهل مشاعر العميل والتركيز على السعر الرخيص فقط","من خلال اللعب على الدافع النفسي والاجتماعي للعميل بعد تحديد الفئة المستهدفة","من خلال تعقيد طريقة استخدام المنتج لإرباك المشتري","من خلال منع العميل من التفكير في جودة السلعة"],a:1},
-{q:"ماذا كان الهدف الأساسي للشركات في المرحلة الثانية (التوجه نحو البيع عام ١٩٥٠)؟",o:["التغلب على مقاومة المستهلك وزيادة تصريف المنتجات فائضة الإنتاج","تلبية رغبات العملاء الشخصية بدقة متناهية","إيقاف الإنتاج بالكامل لحين نفاد المخزون القديم","تقديم خدمات مجانية ومجتمعية غير ربحية"],a:0},
-{q:"ما هي الوسيلة الأساسية التي تحدد قيمة التبادل في المزيج التسويقي؟",o:["المنتج","المكان","السعر","الترويج"],a:2},
-{q:"أي عنصر من عناصر المزيج التسويقي يتضمن الإعلانات وسائر أنشطة الاتصال؟",o:["المنتج","المكان","السعر","الترويج"],a:3},
-{q:"ما هو تعريف «المنتج» بمعناه الشامل في المزيج التسويقي؟",o:["السلع المادية المحسوسة فقط دون الخدمات","الخدمات المعنوية غير الملموسة فقط دون السلع","أي شيء يشبع احتياجات ورغبات العميل (سواء سلعة أو خدمة)","العبوات والأغلفة الخارجية للسلع المصنعة"],a:2},
-{q:"ما هي العلاقة بين سهولة الوصول للمنتج (المكان) وحجم المبيعات؟",o:["كلما كان الوصول للمنتج سهل، كلما زاد البيع","كلما صعب الوصول للمنتج، كلما زاد البيع","لا توجد أي علاقة بين مكان تواجد السلعة وحجم المبيعات","مكان تواجد السلعة يؤثر فقط على التكلفة ولا علاقة له بالمبيعات"],a:0}
-]}];
-let Q=[];
-const $=id=>document.getElementById(id);
-let i=0,ans=[];
-function show(id){["start","quiz","res"].forEach(x=>$(x).classList.toggle("hide",x!==id))}
+const SB="https://hryhzqxljdmysqblvjcx.supabase.co",KEY="sb_publishable_Rpl7SpcV4qdufe6hIdkWAA_KiQb9cxJ";
+const OWNER_PASS="Mq7!rT4#vLp92";
+const L=["أ","ب","ج","د"],$=id=>document.getElementById(id);
+let who="st",sess=null,me=null,exams=[],hist={},mode="login",tab="ex",sub="add",Q=[],cur=null,i=0,ans=[],timer=null,lastKey="";
+const adm=()=>me&&!me.suspended&&(me.role==="admin"||me.role==="owner"),own=()=>me&&!me.suspended&&me.role==="owner";
+function show(id){["auth","main","quiz","res"].forEach(x=>$(x).classList.toggle("hide",x!==id));window.scrollTo(0,0)}
+function el(t,c,x){const e=document.createElement(t);if(c)e.className=c;if(x!==undefined&&x!==null)e.textContent=x;return e}
+function btn(t,f,alt,sm){const b=el("button","btn"+(alt?" alt":"")+(sm?" sm":""),t);b.onclick=f;return b}
+function keep(){try{sess?localStorage.setItem("qs",JSON.stringify(sess)):localStorage.removeItem("qs")}catch(e){}}
+async function mail(u){const h=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(u));return "u"+Array.from(new Uint8Array(h)).slice(0,16).map(b=>b.toString(16).padStart(2,"0")).join("")+"@mora-quiz.app"}
+async function authReq(p,b){const r=await fetch(SB+"/auth/v1/"+p,{method:"POST",headers:{apikey:KEY,"Content-Type":"application/json"},body:JSON.stringify(b)});const d=await r.json().catch(()=>({}));if(!r.ok)throw new Error(d.msg||d.error_description||d.message||"error");return d}
+function setSess(d,name){const m=d.user&&d.user.user_metadata&&d.user.user_metadata.username;sess={a:d.access_token,r:d.refresh_token,u:d.user&&d.user.id,n:m||name||"طالب"};keep()}
+async function refresh(){const d=await authReq("token?grant_type=refresh_token",{refresh_token:sess.r});setSess(d,sess.n)}
+async function rest(m,p,b,retry){
+ const h={apikey:KEY,Authorization:"Bearer "+sess.a,"Content-Type":"application/json"},js=m==="GET"||p.indexOf("rpc/")===0;
+ if(!js)h.Prefer="return=minimal";
+ const r=await fetch(SB+"/rest/v1/"+p,{method:m,headers:h,body:b!==undefined?JSON.stringify(b):undefined});
+ if(r.status===401&&!retry){await refresh();return rest(m,p,b,true)}
+ if(!r.ok){let t="";try{t=(await r.json()).message||""}catch(e){}throw new Error(t||"rest "+r.status)}
+ return js?r.json():null}
+function arMsg(m){
+ if(/Invalid login/i.test(m))return "الاسم أو الباسورد غلط";
+ if(/already registered|already been registered|Database error/i.test(m))return "الاسم ده مستخدم، اختار اسم تاني";
+ if(/at least/i.test(m))return "الباسورد لازم 6 حروف على الأقل";
+ if(/rate limit|too many/i.test(m))return "محاولات كتير، استنى شوية وجرّب تاني";
+ if(m==="confirm")return "تأكيد الإيميل لسه شغال في Supabase، لازم صاحب الموقع يقفله";
+ if(/Failed to fetch|NetworkError/i.test(m))return "مشكلة في النت، جرّب تاني";
+ return "حصل خطأ: "+m}
+function setMode(m){mode=m;$("tl").classList.toggle("alt",m!=="login");$("tr").classList.toggle("alt",m!=="reg");$("ab").textContent=m==="login"?"دخول":"إنشاء حساب";$("pw").autocomplete=m==="login"?"current-password":"new-password";$("am").textContent=""}
+function setWho(w){who=w;
+ document.querySelectorAll("#rt .tabb").forEach(b=>b.classList.toggle("on",b.dataset.r===w));
+ $("mm").classList.toggle("hide",w!=="st");$("first").classList.add("hide");$("un").style.display=$("pw").style.display=w==="mora"?"none":"block";
+ $("at").textContent={mora:"دخول المالك",adm:"دخول الأدمن",st:"سجّل دخولك عشان نتايجك تتحفظ في حسابك"}[w];
+ $("un").value=w==="mora"?"MORA":"";$("pw").value="";setMode("login");if(w==="mora")$("ab").textContent="دخول كـ MORA"}
+async function submitAuth(){
+ let u=$("un").value.trim().replace(/\s+/g," "),p=$("pw").value;const auto=who==="mora"&&$("un").style.display==="none";if(auto){u="MORA";p=OWNER_PASS}
+ if(u.length<2||p.length<6){$("am").textContent="اكتب اسم (حرفين على الأقل) وباسورد (6 على الأقل)";return}
+ $("ab").disabled=true;$("am").className="tag";$("am").textContent="لحظة...";
+ try{
+  const e=await mail(u.toLowerCase());let d;
+  if(mode==="reg"){d=await authReq("signup",{email:e,password:p,data:{username:u}});if(!d.access_token)throw new Error("confirm")}
+  else if(auto){try{d=await authReq("token?grant_type=password",{email:e,password:p})}catch(x){if(!/Invalid login/i.test(x.message))throw x;d=await authReq("signup",{email:e,password:p,data:{username:u}});if(!d.access_token)throw new Error("confirm")}}
+  else d=await authReq("token?grant_type=password",{email:e,password:p});
+  setSess(d,u);$("pw").value="";$("am").textContent="";await enter(who);
+ }catch(x){$("am").className="tag bad";$("am").textContent=arMsg(x.message);if(auto&&/already|Database/i.test(x.message)){$("un").style.display=$("pw").style.display="block";$("am").textContent="حساب MORA موجود بباسورد تاني. اكتبه هنا."}}
+ $("ab").disabled=false}
+async function enter(w){
+ show("main");me=null;
+ try{me=(await rest("GET","profiles?id=eq."+sess.u+"&select=username,role,suspended"))[0]}catch(e){}
+ me=me||{username:sess.n,role:"student",suspended:false};
+ if((w==="mora"&&me.role!=="owner")||(w==="adm"&&me.role!=="admin")){sess=null;me=null;keep();show("auth");$("am").className="tag bad";$("am").textContent=w==="mora"?"الحساب ده مش حساب المالك":"الحساب ده مش أدمن";return}
+ sess.n=me.username;keep();
+ $("hi").textContent="أهلاً "+me.username+(me.role==="owner"?" (المالك)":me.role==="admin"?" (أدمن)":"");
+ $("ban").textContent=me.suspended?"حسابك موقوف حاليا. تواصل مع المالك.":"";
+ openTab("ex")}
+function nav(){
+ const n=$("nav");n.textContent="";
+ const t=[["ex","الامتحانات"],["lb","الأوائل"],["chat","الشات"]];if(adm())t.push(["ad","الإدارة"]);
+ t.forEach(x=>{const b=el("button","tabb"+(tab===x[0]?" on":""),x[1]);b.onclick=()=>openTab(x[0]);n.appendChild(b)})}
+function openTab(k){clearInterval(timer);tab=k;lastKey="";nav();$("pane").textContent="";({ex:tExams,lb:tLb,chat:tChat,ad:tAdmin})[k]()}
+async function loadExams(){exams=await rest("GET","exams?select=id,title,questions,status,creator,created_at&order=created_at.desc")}
+async function tExams(){
+ const p=$("pane");p.textContent="جاري التحميل...";let err=false;
+ try{await loadExams();const rows=await rest("GET","results?select=exam_id,score,total,answers,created_at&user_id=eq."+sess.u+"&order=created_at.desc");
+  hist={};rows.forEach(r=>{(hist[r.exam_id]=hist[r.exam_id]||[]).push(r)})}catch(e){err=true}
+ if(tab!=="ex")return;p.textContent="";
+ if(err)p.appendChild(el("p","tag bad","تعذر التحميل، حدّث الصفحة."));
+ const ap=exams.filter(e=>e.status==="approved");
+ if(!ap.length&&!err)p.appendChild(el("p","sub","مفيش امتحانات لسه."));
+ ap.forEach(e=>{
+  const c=el("div","ex"),h=hist[e.id],n=e.questions.length;
+  c.appendChild(el("p","q",e.title));
+  c.appendChild(el("p","sub",n+" سؤال"+(h?" · آخر نتيجة: "+h[0].score+"/"+h[0].total+" · أعلى نتيجة: "+Math.max.apply(null,h.map(x=>x.score))+"/"+h[0].total+" · المحاولات: "+h.length:"")));
+  const row=el("div","row");row.appendChild(btn(h?"حل تاني":"ابدأ",()=>startEx(e)));
+  if(h)row.appendChild(btn("راجع آخر محاولة",()=>showRes(e,h[0].answers,true),1));
+  c.appendChild(row);p.appendChild(c)})}
+function startEx(e){if(me.suspended)return;cur=e;Q=e.questions;i=0;ans=[];show("quiz");render()}
 function render(){
- const q=Q[i];
+ const q=Q[i],done=ans[i]!==undefined;
  $("cnt").textContent="سؤال "+(i+1)+" من "+Q.length;
  $("sc").textContent="تمت الإجابة على "+ans.filter(x=>x!==undefined).length;
  $("pb").style.width=((i+1)/Q.length*100)+"%";
- $("qt").textContent=(i+1)+". "+q.q;
- $("opts").innerHTML="";
+ $("qt").textContent=(i+1)+". "+q.q;$("opts").textContent="";
  q.o.forEach((t,k)=>{
-  const b=document.createElement("button");
-  const done=ans[i]!==undefined;
-  let c="opt";
+  const b=document.createElement("button");let c="opt";
   if(done){if(k===q.a)c+=" ok";else if(k===ans[i])c+=" no"}
-  b.className=c;
-  b.innerHTML="<b>"+L[k]+"</b><span></span>";
-  b.lastChild.textContent=t;
+  b.className=c;b.innerHTML="<b>"+L[k]+"</b><span></span>";b.lastChild.textContent=t;
   if(done)b.disabled=true;else b.onclick=()=>{ans[i]=k;render()};
-  $("opts").appendChild(b);
- });
+  $("opts").appendChild(b)});
  const f=$("fb");
- if(ans[i]===undefined){f.textContent="";f.className="fb"}
+ if(!done){f.textContent="";f.className="fb"}
  else if(ans[i]===q.a){f.textContent="إجابة صحيحة ✓";f.className="fb good"}
  else{f.textContent="إجابة غلط ✗ — الصحيحة: "+L[q.a];f.className="fb bad"}
- $("prev").disabled=i===0;
- $("next").textContent=i===Q.length-1?"إنهاء وعرض النتيجة":"التالي";
- $("next").disabled=ans[i]===undefined;
-}
-function finish(){
- const n=Q.filter((q,k)=>ans[k]===q.a).length;
- const p=Math.round(n/Q.length*100);
- let h="<h1>النتيجة</h1><div class='score'>"+n+" / "+Q.length+"</div><p class='sub'>"+p+"%</p><div class='row'><button class='btn' id='again'>إعادة الامتحان</button><button class='btn alt' id='home'>القائمة الرئيسية</button></div>";
- Q.forEach((q,k)=>{
-  const okk=ans[k]===q.a;
-  h+="<div class='rev'><p class='q'></p><p class='tag "+(okk?"good":"bad")+"'>إجابتك: "+L[ans[k]]+") <span class='u'></span></p>"+(okk?"":"<p class='tag good'>الإجابة الصحيحة: "+L[q.a]+") <span class='c'></span></p>")+"</div>";
- });
- $("res").innerHTML=h;
- const revs=$("res").querySelectorAll(".rev");
- Q.forEach((q,k)=>{
-  const r=revs[k];
-  r.querySelector(".q").textContent=(k+1)+". "+q.q;
-  r.querySelector(".u").textContent=q.o[ans[k]];
-  const c=r.querySelector(".c");if(c)c.textContent=q.o[q.a];
- });
- $("again").onclick=()=>startEx(cur);$("home").onclick=()=>show("start");
- show("res");window.scrollTo(0,0);
-}
-let cur=0;
-function startEx(n){cur=n;Q=EX[n].Q;i=0;ans=[];show("quiz");render();window.scrollTo(0,0)}
-EX.forEach((e,n)=>{const b=document.createElement("button");b.className="opt";b.innerHTML="<b>"+(n+1)+"</b><span></span>";b.lastChild.textContent=e.t+" ("+e.Q.length+" سؤال)";b.onclick=()=>startEx(n);$("list").appendChild(b)});
+ $("prev").disabled=i===0;$("next").textContent=i===Q.length-1?"إنهاء وعرض النتيجة":"التالي";$("next").disabled=!done}
+async function save(e,a){
+ const st=$("st");if(!st)return;st.className="tag";st.textContent="جاري حفظ النتيجة...";
+ try{await rest("POST","results",{exam_id:e.id,answers:a,score:0,total:0,username:""});st.className="tag good";st.textContent="تم حفظ نتيجتك في حسابك ✓"}
+ catch(x){st.className="tag bad";st.textContent="تعذر حفظ النتيجة. ";const b=btn("حاول تاني",()=>save(e,a),1,1);st.appendChild(b)}}
+function showRes(e,a,old){
+ const qs=e.questions,sc=qs.filter((q,k)=>a[k]===q.a).length,r=$("res");r.textContent="";
+ r.appendChild(el("h1",null,e.title));r.appendChild(el("div","score",sc+" / "+qs.length));
+ r.appendChild(el("p","sub",Math.round(sc/qs.length*100)+"%"+(old?" · آخر محاولة محفوظة":"")));
+ const st=el("p","tag");st.id="st";r.appendChild(st);
+ const row=el("div","row");row.appendChild(btn("حل الامتحان تاني",()=>startEx(e)));row.appendChild(btn("القائمة الرئيسية",()=>{show("main");openTab("ex")},1));r.appendChild(row);
+ qs.forEach((q,k)=>{
+  const ok=a[k]===q.a,d=el("div","rev");
+  d.appendChild(el("p","q",(k+1)+". "+q.q));
+  d.appendChild(el("p","tag "+(ok?"good":"bad"),(ok?"✓ ":"✗ ")+"إجابتك: "+L[a[k]]+") "+q.o[a[k]]));
+  if(!ok)d.appendChild(el("p","tag good","الإجابة الصحيحة: "+L[q.a]+") "+q.o[q.a]));
+  r.appendChild(d)});
+ show("res");if(!old)save(e,a)}
+async function tLb(){
+ const p=$("pane");p.textContent="جاري التحميل...";
+ if(!exams.length)try{await loadExams()}catch(e){}
+ if(tab!=="lb")return;p.textContent="";
+ const s=el("select");s.appendChild(new Option("الإجمالي (كل الامتحانات)",""));
+ exams.filter(e=>e.status==="approved").forEach(e=>s.appendChild(new Option(e.title,e.id)));
+ const w=el("div");p.appendChild(el("p","sub","أعلى 10 طلاب (بأفضل درجة لكل طالب)"));p.appendChild(s);p.appendChild(w);
+ async function load(){
+  w.textContent="جاري التحميل...";
+  try{const r=await rest("POST",s.value?"rpc/leaderboard":"rpc/leaderboard_all",s.value?{p_exam:s.value}:{});w.textContent="";
+   if(!r.length)w.appendChild(el("p","sub","لسه محدش حل."));
+   r.slice(0,10).forEach((x,k)=>{const d=el("div","lbr"+(x.username===me.username?" me":""));d.appendChild(el("span","n",["🥇","🥈","🥉"][k]||String(k+1)));d.appendChild(el("span","u",x.username));d.appendChild(el("span",null,x.score+"/"+x.total));w.appendChild(d)})
+  }catch(e){w.textContent="تعذر التحميل. اتأكد إنك شغّلت كود SQL الجديد."}}
+ s.onchange=load;load()}
+function tChat(){
+ const p=$("pane"),box=el("div","chat"),row=el("div","row"),inp=el("input");
+ inp.placeholder="اكتب رسالة...";inp.maxLength=500;inp.style.marginTop="0";inp.style.flex="1";
+ row.style.alignItems="center";row.appendChild(inp);row.appendChild(btn("إرسال",go));
+ p.appendChild(box);p.appendChild(row);
+ async function load(){try{
+  const r=(await rest("GET","messages?select=id,user_id,username,body,created_at&order=id.desc&limit=60")).reverse(),k=r.length+":"+(r.length?r[r.length-1].id:0);
+  if(k===lastKey)return;lastKey=k;box.textContent="";
+  r.forEach(m=>{const d=el("div","msg"+(m.user_id===sess.u?" me":""));
+   const h=el("div");h.appendChild(el("b",null,m.username));h.appendChild(el("small",null,new Date(m.created_at).toLocaleTimeString("ar-EG",{hour:"2-digit",minute:"2-digit"})));
+   if(adm()||m.user_id===sess.u){const x=btn("حذف",async()=>{try{await rest("DELETE","messages?id=eq."+m.id)}catch(e){}lastKey="";load()},1,1);x.style.marginInlineStart="8px";h.appendChild(x)}
+   d.appendChild(h);d.appendChild(el("p",null,m.body));box.appendChild(d)});
+  box.scrollTop=box.scrollHeight}catch(e){}}
+ async function go(){const t=inp.value.trim();if(!t||me.suspended)return;inp.value="";try{await rest("POST","messages",{body:t,username:""})}catch(e){alert("تعذر الإرسال")}lastKey="";load()}
+ inp.onkeydown=e=>{if(e.key==="Enter")go()};
+ load();timer=setInterval(()=>{if(tab==="chat"&&!document.hidden)load()},5000)}
+function tAdmin(){
+ if(sub==="us"&&!own())sub="add";
+ const p=$("pane"),n=el("div","tabs"),c=el("div"),t=[["add","إضافة امتحان"],["list","الامتحانات"],["sc","الدرجات"]];if(own())t.push(["us","المستخدمين"]);
+ t.forEach(x=>{const b=el("button","tabb"+(sub===x[0]?" on":""),x[1]);b.onclick=()=>{sub=x[0];tAdmin()};n.appendChild(b)});
+ p.textContent="";p.appendChild(n);p.appendChild(c);({add:aAdd,list:aList,sc:aSc,us:aUs})[sub](c)}
+function parseExam(t,k){
+ const ol={"أ":0,"ا":0,"إ":0,"a":0,"ب":1,"b":1,"ج":2,"c":2,"د":3,"d":3},qs=[];let c=null;
+ t.split(/\r?\n/).forEach(l=>{
+  l=l.trim();if(!l)return;
+  let m=c&&l.match(/^([أاإبجدabcdABCD])\s*[\)\-\.]\s*(.+)$/);
+  if(m){c.o.push(m[2].trim());return}
+  m=l.match(/^[\d٠-٩]+\s*[\.\-\)]\s*(.+)$/);
+  if(m){c={q:m[1].trim(),o:[]};qs.push(c);return}
+  if(c&&!c.o.length)c.q+=" "+l});
+ if(!qs.length)return{err:"مش لاقي أسئلة. اكتب كل سؤال برقم (1. 2. ...)"};
+ const bad=qs.findIndex(x=>x.o.length<2||x.o.length>4);
+ if(bad>=0)return{err:"السؤال رقم "+(bad+1)+" لازم يبقى فيه من 2 لـ 4 اختيارات"};
+ const ks=Array.from(k.toLowerCase()).filter(x=>x in ol).map(x=>ol[x]);
+ if(ks.length!==qs.length)return{err:"عدد الأسئلة "+qs.length+" وعدد الإجابات "+ks.length};
+ return{qs:qs.map((x,j)=>({q:x.q,o:x.o,a:ks[j]}))}}
+function aAdd(c){
+ const t=el("input"),q=el("textarea"),k=el("input"),m=el("p","tag");
+ t.placeholder="اسم الامتحان";q.rows=10;q.placeholder="الصق الأسئلة هنا. كل سؤال برقم، وكل اختيار بحرف: أ) ب) ج) د)";k.placeholder="مفتاح الإجابات بالترتيب، مثال: ب ج أ ب";
+ c.appendChild(el("p","sub",own()?"الامتحان هيتنشر للطلاب على طول.":"الامتحان هيستنى موافقة المالك قبل ما يظهر للطلاب."));
+ [t,q,k,m].forEach(x=>c.appendChild(x));
+ const b=btn("حفظ الامتحان",async()=>{
+  const ti=t.value.trim(),r=parseExam(q.value,k.value);m.className="tag bad";
+  if(!ti){m.textContent="اكتب اسم الامتحان";return}
+  if(r.err){m.textContent=r.err;return}
+  b.disabled=true;
+  try{await rest("POST","exams",{title:ti,questions:r.qs,status:own()?"approved":"pending",creator:""});exams=[];m.className="tag good";m.textContent="تم الحفظ ("+r.qs.length+" سؤال)"+(own()?"":" وفي انتظار موافقة المالك");t.value=q.value=k.value=""}
+  catch(e){m.textContent="تعذر الحفظ: "+e.message}
+  b.disabled=false});
+ const row=el("div","row");row.appendChild(b);c.appendChild(row)}
+async function aList(c){
+ c.textContent="جاري التحميل...";
+ try{await loadExams()}catch(e){c.textContent="تعذر التحميل";return}
+ c.textContent="";if(!exams.length)c.appendChild(el("p","sub","مفيش امتحانات."));
+ const lb={pending:["قيد المراجعة","warn"],approved:["معتمد","good"],rejected:["مرفوض","bad"]};
+ const act=f=>async()=>{try{await f()}catch(e){alert("تعذر التنفيذ: "+e.message)}exams=[];aList(c)};
+ exams.forEach(e=>{
+  const d=el("div","ex"),pv=el("div","hide"),s=lb[e.status];
+  d.appendChild(el("p","q",e.title));
+  const sp=el("p","sub",e.questions.length+" سؤال · رفعه: "+e.creator+" · ");sp.appendChild(el("b","tag "+s[1],s[0]));d.appendChild(sp);
+  e.questions.forEach((q,k)=>{pv.appendChild(el("p","tag",(k+1)+". "+q.q));q.o.forEach((o,j)=>pv.appendChild(el("p","tag"+(j===q.a?" good":""),(j===q.a?"✓ ":"   ")+L[j]+") "+o)))});
+  const row=el("div","row");row.appendChild(btn("معاينة",()=>pv.classList.toggle("hide"),1,1));
+  if(own()&&e.status!=="approved")row.appendChild(btn("اعتماد",act(()=>rest("PATCH","exams?id=eq."+e.id,{status:"approved"})),0,1));
+  if(own()&&e.status!=="rejected")row.appendChild(btn("رفض",act(()=>rest("PATCH","exams?id=eq."+e.id,{status:"rejected"})),1,1));
+  if(own()||e.status!=="approved")row.appendChild(btn("حذف",act(async()=>{if(confirm("متأكد من الحذف؟"))await rest("DELETE","exams?id=eq."+e.id)}),1,1));
+  d.appendChild(row);d.appendChild(pv);c.appendChild(d)})}
+async function aSc(c){
+ c.textContent="جاري التحميل...";let R=[],P=[],E=[];
+ try{R=await rest("GET","results?select=user_id,exam_id,score,total,created_at&order=created_at.desc&limit=500");P=await rest("GET","profiles?select=id,username");E=await rest("GET","exams?select=id,title")}catch(e){c.textContent="تعذر التحميل";return}
+ const nm={},tt={};P.forEach(x=>{nm[x.id]=x.username});E.forEach(x=>{tt[x.id]=x.title});
+ const s=el("select"),w=el("div","tw");s.appendChild(new Option("كل الامتحانات",""));E.forEach(x=>s.appendChild(new Option(x.title,x.id)));
+ const draw=()=>{w.textContent="";const t=el("table"),h=el("tr");["الطالب","الامتحان","الدرجة","التاريخ"].forEach(x=>h.appendChild(el("th",null,x)));t.appendChild(h);
+  R.filter(x=>!s.value||x.exam_id===s.value).forEach(x=>{const r=el("tr");[nm[x.user_id]||"؟",tt[x.exam_id]||"(امتحان محذوف)",x.score+"/"+x.total,new Date(x.created_at).toLocaleDateString("ar-EG")].forEach(v=>r.appendChild(el("td",null,v)));t.appendChild(r)});w.appendChild(t)};
+ s.onchange=draw;c.textContent="";c.appendChild(s);c.appendChild(w);draw()}
+async function aUs(c){
+ c.textContent="جاري التحميل...";let P=[];
+ try{P=await rest("GET","profiles?select=id,username,role,suspended&order=created_at.asc")}catch(e){c.textContent="تعذر التحميل";return}
+ c.textContent="";
+ P.forEach(u=>{
+  const d=el("div","ex");d.appendChild(el("p","q",u.username));
+  d.appendChild(el("p","sub",{owner:"مالك",admin:"أدمن",student:"طالب"}[u.role]+(u.suspended?" · موقوف":"")));
+  if(u.id!==sess.u){
+   const row=el("div","row"),go=b=>async()=>{try{await rest("PATCH","profiles?id=eq."+u.id,b)}catch(e){alert("تعذر التنفيذ")}aUs(c)};
+   if(u.role==="student")row.appendChild(btn("ترقية لأدمن",go({role:"admin"}),0,1));
+   if(u.role==="admin")row.appendChild(btn("تحويل لطالب",go({role:"student"}),1,1));
+   row.appendChild(btn(u.suspended?"تفعيل":"إيقاف",go({suspended:!u.suspended}),1,1));d.appendChild(row)}
+  c.appendChild(d)})}
+$("tl").onclick=()=>setMode("login");$("tr").onclick=()=>setMode("reg");
+document.querySelectorAll("#rt .tabb").forEach(b=>{b.onclick=()=>setWho(b.dataset.r)});$("fl").onclick=e=>{e.preventDefault();setMode("reg")};
+$("ab").onclick=submitAuth;$("pw").onkeydown=e=>{if(e.key==="Enter")submitAuth()};
+$("out").onclick=()=>{clearInterval(timer);sess=null;me=null;keep();show("auth");setWho("st")};
 $("prev").onclick=()=>{if(i>0){i--;render()}};
-$("next").onclick=()=>{if(i<Q.length-1){i++;render()}else finish()};
+$("next").onclick=()=>{if(i<Q.length-1){i++;render()}else showRes(cur,ans,false)};
+(async()=>{
+ try{sess=JSON.parse(localStorage.getItem("qs"))}catch(e){sess=null}
+ if(sess&&sess.r){try{await refresh();return enter()}catch(e){sess=null;keep()}}
+ show("auth")})();
 </script>
 </body>
 </html>
