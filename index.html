@@ -1,322 +1,163 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>منصة الامتحانات</title>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>College Lectures📝</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#eef2f6;--card:#fff;--ink:#14213d;--mute:#5b6678;--line:#d5dce6;--acc:#1b5fa8;--ok:#1f8a4c;--okbg:#e4f5ec;--bad:#c0392b;--badbg:#fbe9e7}
-@media(prefers-color-scheme:dark){:root{--bg:#0f1624;--card:#18223a;--ink:#e8edf6;--mute:#9aa6bd;--line:#2c3a58;--acc:#5aa2e8;--ok:#4cc585;--okbg:#14302350;--bad:#ef7f72;--badbg:#3a181850}}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:Tajawal,Tahoma,sans-serif;line-height:1.8;font-size:17px}
-.wrap{max-width:760px;margin:0 auto;padding:20px 16px 48px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}
-h1{font-size:26px;margin:0 0 6px;font-weight:800}
-p.sub{color:var(--mute);margin:0 0 14px}
-.bar{height:8px;background:var(--line);border-radius:8px;overflow:hidden;margin-bottom:6px}
-.bar i{display:block;height:100%;background:var(--acc);width:0;transition:width .3s}
-.meta{display:flex;justify-content:space-between;align-items:center;color:var(--mute);font-size:14px;margin-bottom:14px}
-.q{font-size:20px;font-weight:700;margin:0 0 16px}
-.opt{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:right;background:var(--card);color:var(--ink);border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:10px;font:inherit;cursor:pointer}
-.opt:hover{border-color:var(--acc)}
-.opt:focus-visible,.btn:focus-visible,.tabb:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
-.opt b{flex:none;width:28px;height:28px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;font-size:14px}
-.opt.ok{border-color:var(--ok);background:var(--okbg)}
-.opt.no{border-color:var(--bad);background:var(--badbg)}
-.opt:disabled{color:var(--ink);cursor:default}
-.opt:disabled:hover{border-color:var(--line)}
-.opt.ok:disabled:hover{border-color:var(--ok)}
-.opt.no:disabled:hover{border-color:var(--bad)}
-.row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
-.btn{font:inherit;font-weight:700;border:0;border-radius:10px;padding:11px 22px;cursor:pointer;background:var(--acc);color:#fff}
-.btn.alt{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
-.btn.sm{padding:4px 12px;font-size:14px}
-.btn:disabled{opacity:.4;cursor:not-allowed}
-.score{font-size:54px;font-weight:800;margin:6px 0}
-.rev{border-top:1px solid var(--line);padding-top:14px;margin-top:14px}
-.rev .q{font-size:17px;margin-bottom:8px}
-.tag{font-size:14px;margin:2px 0}
-.good{color:var(--ok)}.bad{color:var(--bad)}.warn{color:#b7791f}
-.fb{font-weight:700;margin:6px 0 0;min-height:1.8em}
-.hide{display:none}
-input,textarea,select{display:block;width:100%;font:inherit;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);margin-top:12px}
-input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
-.ex{border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px}
-.ex .q{font-size:18px;margin-bottom:4px}
-.ex .sub{margin:0 0 4px;font-size:15px}
-.small{font-size:13px;color:var(--mute);margin:10px 0 0}
-.tabs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:14px;border-bottom:1px solid var(--line)}
-.tabb{font:inherit;font-weight:700;background:transparent;color:var(--mute);border:0;border-bottom:3px solid transparent;padding:6px 12px;cursor:pointer}
-.tabb.on{color:var(--acc);border-color:var(--acc)}
-.chat{height:340px;overflow-y:auto;border:1px solid var(--line);border-radius:12px;padding:10px;margin-top:6px}
-.msg{background:var(--bg);border-radius:10px;padding:6px 10px;margin-bottom:8px}
-.msg.me{background:color-mix(in srgb,var(--acc) 14%,var(--card))}
-.msg b{font-size:14px;color:var(--acc)}
-.msg small{color:var(--mute);margin-inline-start:8px}
-.msg p{margin:2px 0;word-break:break-word}
-.lbr{display:flex;gap:12px;padding:10px;border-bottom:1px solid var(--line)}
-.lbr.me{background:color-mix(in srgb,var(--acc) 12%,var(--card))}
-.lbr .n{flex:none;width:36px;font-weight:800}
-.lbr .u{flex:1}
-.tw{overflow-x:auto}
-table{width:100%;border-collapse:collapse;font-size:15px;margin-top:12px}
-th,td{padding:8px;border-bottom:1px solid var(--line);text-align:right}
-</style>
-</head>
-<body>
-<div class="wrap">
- <div id="auth" class="card hide">
-  <h1>منصة الامتحانات</h1>
-  <p class="sub" id="at">سجّل دخولك عشان نتايجك تتحفظ في حسابك</p>
-  <div class="tabs" id="rt"><button class="tabb" data-r="mora">MORA</button><button class="tabb" data-r="adm">أدمن</button><button class="tabb on" data-r="st">طالب</button></div>
-  <div class="row" id="mm" style="margin-top:0"><button class="btn" id="tl">دخول</button><button class="btn alt" id="tr">حساب جديد</button></div>
-  <input id="un" placeholder="اسمك" autocomplete="username" maxlength="30">
-  <input id="pw" type="password" placeholder="الباسورد (6 حروف على الأقل)" autocomplete="current-password">
-  <p class="tag bad" id="am"></p>
-  <button class="btn" id="ab">دخول</button>
-  <p class="small hide" id="first"><a href="#" id="fl" style="color:var(--acc)">أول مرة؟ أنشئ حساب المالك</a></p>
-  <p class="small">احفظ الباسورد كويس، مفيش استرجاع تلقائي لو اتنسي.</p>
- </div>
- <div id="main" class="card hide">
-  <div class="meta"><span id="hi"></span><button class="btn alt sm" id="out">خروج</button></div>
-  <p class="tag bad" id="ban"></p>
-  <div class="tabs" id="nav"></div>
-  <div id="pane"></div>
- </div>
- <div id="quiz" class="card hide">
-  <div class="meta"><span id="cnt"></span><span id="sc"></span></div>
-  <div class="bar"><i id="pb"></i></div>
-  <p class="q" id="qt"></p>
-  <div id="opts"></div>
-  <p class="fb" id="fb"></p>
-  <div class="row"><button class="btn alt" id="prev">السابق</button><button class="btn" id="next">التالي</button></div>
- </div>
- <div id="res" class="card hide"></div>
-</div>
+:root{--bg:#f3f5fb;--c:#fff;--t:#1b2240;--m:#6b7390;--p:#4f46e5;--ok:#16a34a;--no:#dc2626;--b:#e2e6f1}
+@media(prefers-color-scheme:dark){:root{--bg:#0e1120;--c:#171b2f;--t:#e8ebf7;--m:#98a0c0;--b:#262b47}}
+*{box-sizing:border-box}body{margin:0;font-family:Cairo,Tahoma,sans-serif;background:var(--bg);color:var(--t)}
+header{background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+header b{font-size:1.1rem}header button{background:#ffffff30;color:#fff;border:0;border-radius:8px;padding:6px 12px;font:inherit;cursor:pointer}
+nav{display:flex;gap:6px;overflow-x:auto;padding:10px 12px;background:var(--c);border-bottom:1px solid var(--b)}
+nav button{white-space:nowrap;border:0;background:none;color:var(--m);font:inherit;padding:8px 14px;border-radius:20px;cursor:pointer}
+nav button.on{background:var(--p);color:#fff}
+main{max-width:760px;margin:0 auto;padding:14px}
+.card{background:var(--c);border:1px solid var(--b);border-radius:14px;padding:14px;margin-bottom:12px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.m{color:var(--m);font-size:.85rem}.acts{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.btn,.sm{border:0;border-radius:10px;background:var(--p);color:#fff;font:inherit;font-weight:600;padding:10px 18px;cursor:pointer}
+.sm{padding:6px 12px;font-size:.85rem;background:var(--b);color:var(--t)}.sm.ok{background:var(--ok);color:#fff}.sm.no{background:var(--no);color:#fff}
+input,textarea,select{width:100%;font:inherit;padding:10px 12px;margin:6px 0;border:1px solid var(--b);border-radius:10px;background:var(--bg);color:var(--t)}
+textarea{min-height:170px;resize:vertical}
+.auth{max-width:380px;margin:8vh auto}.auth h1{text-align:center;font-size:1.4rem}.auth .btn{width:100%;margin-top:6px}
+.tabs{display:flex;gap:6px;background:var(--bg);padding:4px;border-radius:12px;margin-bottom:8px}
+.tabs button{flex:1;border:0;background:none;color:var(--m);font:inherit;font-weight:600;padding:8px;border-radius:9px;cursor:pointer}.tabs .on{background:var(--p);color:#fff}
+.opt{display:block;width:100%;text-align:right;padding:12px 14px;margin:8px 0;border:2px solid var(--b);border-radius:12px;background:var(--bg);color:var(--t);font:inherit;cursor:pointer}
+.opt.ok{border-color:var(--ok);background:#16a34a22}.opt.no{border-color:var(--no);background:#dc262622}
+.bar{height:6px;background:var(--b);border-radius:6px;margin:8px 0}.bar i{display:block;height:100%;background:var(--p);border-radius:6px}
+.av{width:38px;height:38px;border-radius:50%;object-fit:cover;vertical-align:middle;display:inline-flex;align-items:center;justify-content:center;background:#7c6cf0;color:#fff;font-weight:700;margin-inline-end:8px}header .av{border:2px solid #fff}.av[onclick]{cursor:pointer}
+.tag{font-size:.75rem;padding:2px 9px;border-radius:12px;background:var(--b)}.tag.pending{background:#f59e0b33}.tag.rejected{background:#dc262633}
+table{width:100%;border-collapse:collapse}td,th{padding:8px;border-bottom:1px solid var(--b);text-align:right}
+.chat #cl{height:55vh;overflow-y:auto;display:flex;flex-direction:column;gap:8px}
+.msg{background:var(--bg);border-radius:12px;padding:8px 12px}.msg.me{background:#4f46e533}.msg b{font-size:.8rem}
+.send{display:flex;gap:6px;margin-top:8px}.send input{margin:0}
+#toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#1b2240;color:#fff;padding:10px 18px;border-radius:10px;display:none;z-index:9}
+.big{text-align:center;font-size:2.4rem;font-weight:700;color:var(--p)}
+.bg{position:fixed;inset:0;z-index:-1;overflow:hidden}.bg i{position:absolute;border-radius:50%;filter:blur(70px);opacity:.35;animation:fl 18s ease-in-out infinite alternate}
+.bg i:nth-child(1){width:340px;height:340px;background:#6366f1;top:-80px;right:-60px}.bg i:nth-child(2){width:300px;height:300px;background:#ec4899;bottom:-60px;left:-60px;animation-delay:-6s}.bg i:nth-child(3){width:240px;height:240px;background:#22d3ee;top:40%;left:45%;animation-delay:-12s}
+@keyframes fl{to{transform:translate(60px,-50px) scale(1.2)}}
+.card{backdrop-filter:blur(12px);background:color-mix(in srgb,var(--c) 82%,transparent);box-shadow:0 6px 24px #4f46e514;transition:transform .2s;animation:up .4s}.card:hover{transform:translateY(-2px)}
+@keyframes up{from{opacity:0;transform:translateY(10px)}}
+.opt.ok{animation:pop .3s}.opt.no{animation:shk .35s}@keyframes pop{50%{transform:scale(1.03)}}@keyframes shk{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.bar i{background:linear-gradient(90deg,#6366f1,#ec4899)}
+.pod{display:flex;align-items:flex-end;justify-content:center;gap:8px;margin:10px 0}.pod div{flex:1;max-width:130px;text-align:center;border-radius:14px 14px 0 0;padding:8px 4px;color:#fff}.pod .p1{height:160px;background:linear-gradient(#fbbf24,#d97706)}.pod .p2{height:130px;background:linear-gradient(#cbd5e1,#64748b)}.pod .p3{height:110px;background:linear-gradient(#fdba74,#c2410c)}.pod .av{margin:0;border:2px solid #fff}.pod b{display:block;font-size:.8rem;word-break:break-word}
+.ring{width:130px;height:130px;border-radius:50%;margin:10px auto;display:grid;place-items:center}.ring span{width:100px;height:100px;border-radius:50%;background:var(--c);display:grid;place-items:center;font-size:1.6rem;font-weight:700}
+.cf{position:fixed;top:-10px;width:9px;height:14px;z-index:9;animation:cfa 2.5s linear forwards}@keyframes cfa{to{transform:translateY(105vh) rotate(720deg)}}
+.sp{display:flex;align-items:flex-end;gap:3px;height:36px;margin:8px 0}.sp i{flex:1;max-width:14px;background:var(--p);border-radius:3px 3px 0 0;min-height:3px}
+[data-th=dark]{--bg:#0e1120;--c:#171b2f;--t:#e8ebf7;--m:#98a0c0;--b:#262b47}[data-th=light]{--bg:#f3f5fb;--c:#fff;--t:#1b2240;--m:#6b7390;--b:#e2e6f1}
+</style></head><body>
+<div class="bg"><i></i><i></i><i></i></div><div id="app"></div><div id="toast"></div>
 <script>
-const SB="https://hryhzqxljdmysqblvjcx.supabase.co",KEY="sb_publishable_Rpl7SpcV4qdufe6hIdkWAA_KiQb9cxJ";
-const OWNER_PASS="Mq7!rT4#vLp92";
-const L=["أ","ب","ج","د"],$=id=>document.getElementById(id);
-let who="st",sess=null,me=null,exams=[],hist={},mode="login",tab="ex",sub="add",Q=[],cur=null,i=0,ans=[],timer=null,lastKey="";
-const adm=()=>me&&!me.suspended&&(me.role==="admin"||me.role==="owner"),own=()=>me&&!me.suspended&&me.role==="owner";
-function show(id){["auth","main","quiz","res"].forEach(x=>$(x).classList.toggle("hide",x!==id));window.scrollTo(0,0)}
-function el(t,c,x){const e=document.createElement(t);if(c)e.className=c;if(x!==undefined&&x!==null)e.textContent=x;return e}
-function btn(t,f,alt,sm){const b=el("button","btn"+(alt?" alt":"")+(sm?" sm":""),t);b.onclick=f;return b}
-function keep(){try{sess?localStorage.setItem("qs",JSON.stringify(sess)):localStorage.removeItem("qs")}catch(e){}}
-async function mail(u){const h=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(u));return "u"+Array.from(new Uint8Array(h)).slice(0,16).map(b=>b.toString(16).padStart(2,"0")).join("")+"@mora-quiz.app"}
-async function authReq(p,b){const r=await fetch(SB+"/auth/v1/"+p,{method:"POST",headers:{apikey:KEY,"Content-Type":"application/json"},body:JSON.stringify(b)});const d=await r.json().catch(()=>({}));if(!r.ok)throw new Error(d.msg||d.error_description||d.message||"error");return d}
-function setSess(d,name){const m=d.user&&d.user.user_metadata&&d.user.user_metadata.username;sess={a:d.access_token,r:d.refresh_token,u:d.user&&d.user.id,n:m||name||"طالب"};keep()}
-async function refresh(){const d=await authReq("token?grant_type=refresh_token",{refresh_token:sess.r});setSess(d,sess.n)}
-async function rest(m,p,b,retry){
- const h={apikey:KEY,Authorization:"Bearer "+sess.a,"Content-Type":"application/json"},js=m==="GET"||p.indexOf("rpc/")===0;
- if(!js)h.Prefer="return=minimal";
- const r=await fetch(SB+"/rest/v1/"+p,{method:m,headers:h,body:b!==undefined?JSON.stringify(b):undefined});
- if(r.status===401&&!retry){await refresh();return rest(m,p,b,true)}
- if(!r.ok){let t="";try{t=(await r.json()).message||""}catch(e){}throw new Error(t||"rest "+r.status)}
- return js?r.json():null}
-function arMsg(m){
- if(/Invalid login/i.test(m))return "الاسم أو الباسورد غلط";
- if(/already registered|already been registered|Database error/i.test(m))return "الاسم ده مستخدم، اختار اسم تاني";
- if(/at least/i.test(m))return "الباسورد لازم 6 حروف على الأقل";
- if(/rate limit|too many/i.test(m))return "محاولات كتير، استنى شوية وجرّب تاني";
- if(m==="confirm")return "تأكيد الإيميل لسه شغال في Supabase، لازم صاحب الموقع يقفله";
- if(/Failed to fetch|NetworkError/i.test(m))return "مشكلة في النت، جرّب تاني";
- return "حصل خطأ: "+m}
-function setMode(m){mode=m;$("tl").classList.toggle("alt",m!=="login");$("tr").classList.toggle("alt",m!=="reg");$("ab").textContent=m==="login"?"دخول":"إنشاء حساب";$("pw").autocomplete=m==="login"?"current-password":"new-password";$("am").textContent=""}
-function setWho(w){who=w;
- document.querySelectorAll("#rt .tabb").forEach(b=>b.classList.toggle("on",b.dataset.r===w));
- $("mm").classList.toggle("hide",w!=="st");$("first").classList.add("hide");$("un").style.display=$("pw").style.display=w==="mora"?"none":"block";
- $("at").textContent={mora:"دخول المالك",adm:"دخول الأدمن",st:"سجّل دخولك عشان نتايجك تتحفظ في حسابك"}[w];
- $("un").value=w==="mora"?"MORA":"";$("pw").value="";setMode("login");if(w==="mora")$("ab").textContent="دخول كـ MORA"}
-async function submitAuth(){
- let u=$("un").value.trim().replace(/\s+/g," "),p=$("pw").value;const auto=who==="mora"&&$("un").style.display==="none";if(auto){u="MORA";p=OWNER_PASS}
- if(u.length<2||p.length<6){$("am").textContent="اكتب اسم (حرفين على الأقل) وباسورد (6 على الأقل)";return}
- $("ab").disabled=true;$("am").className="tag";$("am").textContent="لحظة...";
- try{
-  const e=await mail(u.toLowerCase());let d;
-  if(mode==="reg"){d=await authReq("signup",{email:e,password:p,data:{username:u}});if(!d.access_token)throw new Error("confirm")}
-  else if(auto){try{d=await authReq("token?grant_type=password",{email:e,password:p})}catch(x){if(!/Invalid login/i.test(x.message))throw x;d=await authReq("signup",{email:e,password:p,data:{username:u}});if(!d.access_token)throw new Error("confirm")}}
-  else d=await authReq("token?grant_type=password",{email:e,password:p});
-  setSess(d,u);$("pw").value="";$("am").textContent="";await enter(who);
- }catch(x){$("am").className="tag bad";$("am").textContent=arMsg(x.message);if(auto&&/already|Database/i.test(x.message)){$("un").style.display=$("pw").style.display="block";$("am").textContent="حساب MORA موجود بباسورد تاني. اكتبه هنا."}}
- $("ab").disabled=false}
-async function enter(w){
- show("main");me=null;
- try{me=(await rest("GET","profiles?id=eq."+sess.u+"&select=username,role,suspended"))[0]}catch(e){}
- me=me||{username:sess.n,role:"student",suspended:false};
- if((w==="mora"&&me.role!=="owner")||(w==="adm"&&me.role!=="admin")){sess=null;me=null;keep();show("auth");$("am").className="tag bad";$("am").textContent=w==="mora"?"الحساب ده مش حساب المالك":"الحساب ده مش أدمن";return}
- sess.n=me.username;keep();
- $("hi").textContent="أهلاً "+me.username+(me.role==="owner"?" (المالك)":me.role==="admin"?" (أدمن)":"");
- $("ban").textContent=me.suspended?"حسابك موقوف حاليا. تواصل مع المالك.":"";
- openTab("ex")}
-function nav(){
- const n=$("nav");n.textContent="";
- const t=[["ex","الامتحانات"],["lb","الأوائل"],["chat","الشات"]];if(adm())t.push(["ad","الإدارة"]);
- t.forEach(x=>{const b=el("button","tabb"+(tab===x[0]?" on":""),x[1]);b.onclick=()=>openTab(x[0]);n.appendChild(b)})}
-function openTab(k){clearInterval(timer);tab=k;lastKey="";nav();$("pane").textContent="";({ex:tExams,lb:tLb,chat:tChat,ad:tAdmin})[k]()}
-async function loadExams(){exams=await rest("GET","exams?select=id,title,questions,status,creator,created_at&order=created_at.desc")}
-async function tExams(){
- const p=$("pane");p.textContent="جاري التحميل...";let err=false;
- try{await loadExams();const rows=await rest("GET","results?select=exam_id,score,total,answers,created_at&user_id=eq."+sess.u+"&order=created_at.desc");
-  hist={};rows.forEach(r=>{(hist[r.exam_id]=hist[r.exam_id]||[]).push(r)})}catch(e){err=true}
- if(tab!=="ex")return;p.textContent="";
- if(err)p.appendChild(el("p","tag bad","تعذر التحميل، حدّث الصفحة."));
- const ap=exams.filter(e=>e.status==="approved");
- if(!ap.length&&!err)p.appendChild(el("p","sub","مفيش امتحانات لسه."));
- ap.forEach(e=>{
-  const c=el("div","ex"),h=hist[e.id],n=e.questions.length;
-  c.appendChild(el("p","q",e.title));
-  c.appendChild(el("p","sub",n+" سؤال"+(h?" · آخر نتيجة: "+h[0].score+"/"+h[0].total+" · أعلى نتيجة: "+Math.max.apply(null,h.map(x=>x.score))+"/"+h[0].total+" · المحاولات: "+h.length:"")));
-  const row=el("div","row");row.appendChild(btn(h?"حل تاني":"ابدأ",()=>startEx(e)));
-  if(h)row.appendChild(btn("راجع آخر محاولة",()=>showRes(e,h[0].answers,true),1));
-  c.appendChild(row);p.appendChild(c)})}
-function startEx(e){if(me.suspended)return;cur=e;Q=e.questions;i=0;ans=[];show("quiz");render()}
-function render(){
- const q=Q[i],done=ans[i]!==undefined;
- $("cnt").textContent="سؤال "+(i+1)+" من "+Q.length;
- $("sc").textContent="تمت الإجابة على "+ans.filter(x=>x!==undefined).length;
- $("pb").style.width=((i+1)/Q.length*100)+"%";
- $("qt").textContent=(i+1)+". "+q.q;$("opts").textContent="";
- q.o.forEach((t,k)=>{
-  const b=document.createElement("button");let c="opt";
-  if(done){if(k===q.a)c+=" ok";else if(k===ans[i])c+=" no"}
-  b.className=c;b.innerHTML="<b>"+L[k]+"</b><span></span>";b.lastChild.textContent=t;
-  if(done)b.disabled=true;else b.onclick=()=>{ans[i]=k;render()};
-  $("opts").appendChild(b)});
- const f=$("fb");
- if(!done){f.textContent="";f.className="fb"}
- else if(ans[i]===q.a){f.textContent="إجابة صحيحة ✓";f.className="fb good"}
- else{f.textContent="إجابة غلط ✗ — الصحيحة: "+L[q.a];f.className="fb bad"}
- $("prev").disabled=i===0;$("next").textContent=i===Q.length-1?"إنهاء وعرض النتيجة":"التالي";$("next").disabled=!done}
-async function save(e,a){
- const st=$("st");if(!st)return;st.className="tag";st.textContent="جاري حفظ النتيجة...";
- try{await rest("POST","results",{exam_id:e.id,answers:a,score:0,total:0,username:""});st.className="tag good";st.textContent="تم حفظ نتيجتك في حسابك ✓"}
- catch(x){st.className="tag bad";st.textContent="تعذر حفظ النتيجة. ";const b=btn("حاول تاني",()=>save(e,a),1,1);st.appendChild(b)}}
-function showRes(e,a,old){
- const qs=e.questions,sc=qs.filter((q,k)=>a[k]===q.a).length,r=$("res");r.textContent="";
- r.appendChild(el("h1",null,e.title));r.appendChild(el("div","score",sc+" / "+qs.length));
- r.appendChild(el("p","sub",Math.round(sc/qs.length*100)+"%"+(old?" · آخر محاولة محفوظة":"")));
- const st=el("p","tag");st.id="st";r.appendChild(st);
- const row=el("div","row");row.appendChild(btn("حل الامتحان تاني",()=>startEx(e)));row.appendChild(btn("القائمة الرئيسية",()=>{show("main");openTab("ex")},1));r.appendChild(row);
- qs.forEach((q,k)=>{
-  const ok=a[k]===q.a,d=el("div","rev");
-  d.appendChild(el("p","q",(k+1)+". "+q.q));
-  d.appendChild(el("p","tag "+(ok?"good":"bad"),(ok?"✓ ":"✗ ")+"إجابتك: "+L[a[k]]+") "+q.o[a[k]]));
-  if(!ok)d.appendChild(el("p","tag good","الإجابة الصحيحة: "+L[q.a]+") "+q.o[q.a]));
-  r.appendChild(d)});
- show("res");if(!old)save(e,a)}
-async function tLb(){
- const p=$("pane");p.textContent="جاري التحميل...";
- if(!exams.length)try{await loadExams()}catch(e){}
- if(tab!=="lb")return;p.textContent="";
- const s=el("select");s.appendChild(new Option("الإجمالي (كل الامتحانات)",""));
- exams.filter(e=>e.status==="approved").forEach(e=>s.appendChild(new Option(e.title,e.id)));
- const w=el("div");p.appendChild(el("p","sub","أعلى 10 طلاب (بأفضل درجة لكل طالب)"));p.appendChild(s);p.appendChild(w);
- async function load(){
-  w.textContent="جاري التحميل...";
-  try{const r=await rest("POST",s.value?"rpc/leaderboard":"rpc/leaderboard_all",s.value?{p_exam:s.value}:{});w.textContent="";
-   if(!r.length)w.appendChild(el("p","sub","لسه محدش حل."));
-   r.slice(0,10).forEach((x,k)=>{const d=el("div","lbr"+(x.username===me.username?" me":""));d.appendChild(el("span","n",["🥇","🥈","🥉"][k]||String(k+1)));d.appendChild(el("span","u",x.username));d.appendChild(el("span",null,x.score+"/"+x.total));w.appendChild(d)})
-  }catch(e){w.textContent="تعذر التحميل. اتأكد إنك شغّلت كود SQL الجديد."}}
- s.onchange=load;load()}
-function tChat(){
- const p=$("pane"),box=el("div","chat"),row=el("div","row"),inp=el("input");
- inp.placeholder="اكتب رسالة...";inp.maxLength=500;inp.style.marginTop="0";inp.style.flex="1";
- row.style.alignItems="center";row.appendChild(inp);row.appendChild(btn("إرسال",go));
- p.appendChild(box);p.appendChild(row);
- async function load(){try{
-  const r=(await rest("GET","messages?select=id,user_id,username,body,created_at&order=id.desc&limit=60")).reverse(),k=r.length+":"+(r.length?r[r.length-1].id:0);
-  if(k===lastKey)return;lastKey=k;box.textContent="";
-  r.forEach(m=>{const d=el("div","msg"+(m.user_id===sess.u?" me":""));
-   const h=el("div");h.appendChild(el("b",null,m.username));h.appendChild(el("small",null,new Date(m.created_at).toLocaleTimeString("ar-EG",{hour:"2-digit",minute:"2-digit"})));
-   if(adm()||m.user_id===sess.u){const x=btn("حذف",async()=>{try{await rest("DELETE","messages?id=eq."+m.id)}catch(e){}lastKey="";load()},1,1);x.style.marginInlineStart="8px";h.appendChild(x)}
-   d.appendChild(h);d.appendChild(el("p",null,m.body));box.appendChild(d)});
-  box.scrollTop=box.scrollHeight}catch(e){}}
- async function go(){const t=inp.value.trim();if(!t||me.suspended)return;inp.value="";try{await rest("POST","messages",{body:t,username:""})}catch(e){alert("تعذر الإرسال")}lastKey="";load()}
- inp.onkeydown=e=>{if(e.key==="Enter")go()};
- load();timer=setInterval(()=>{if(tab==="chat"&&!document.hidden)load()},5000)}
-function tAdmin(){
- if(sub==="us"&&!own())sub="add";
- const p=$("pane"),n=el("div","tabs"),c=el("div"),t=[["add","إضافة امتحان"],["list","الامتحانات"],["sc","الدرجات"]];if(own())t.push(["us","المستخدمين"]);
- t.forEach(x=>{const b=el("button","tabb"+(sub===x[0]?" on":""),x[1]);b.onclick=()=>{sub=x[0];tAdmin()};n.appendChild(b)});
- p.textContent="";p.appendChild(n);p.appendChild(c);({add:aAdd,list:aList,sc:aSc,us:aUs})[sub](c)}
-function parseExam(t,k){
- const ol={"أ":0,"ا":0,"إ":0,"a":0,"ب":1,"b":1,"ج":2,"c":2,"د":3,"d":3},qs=[];let c=null;
- t.split(/\r?\n/).forEach(l=>{
-  l=l.trim();if(!l)return;
-  let m=c&&l.match(/^([أاإبجدabcdABCD])\s*[\)\-\.]\s*(.+)$/);
-  if(m){c.o.push(m[2].trim());return}
-  m=l.match(/^[\d٠-٩]+\s*[\.\-\)]\s*(.+)$/);
-  if(m){c={q:m[1].trim(),o:[]};qs.push(c);return}
-  if(c&&!c.o.length)c.q+=" "+l});
- if(!qs.length)return{err:"مش لاقي أسئلة. اكتب كل سؤال برقم (1. 2. ...)"};
- const bad=qs.findIndex(x=>x.o.length<2||x.o.length>4);
- if(bad>=0)return{err:"السؤال رقم "+(bad+1)+" لازم يبقى فيه من 2 لـ 4 اختيارات"};
- const ks=Array.from(k.toLowerCase()).filter(x=>x in ol).map(x=>ol[x]);
- if(ks.length!==qs.length)return{err:"عدد الأسئلة "+qs.length+" وعدد الإجابات "+ks.length};
- return{qs:qs.map((x,j)=>({q:x.q,o:x.o,a:ks[j]}))}}
-function aAdd(c){
- const t=el("input"),q=el("textarea"),k=el("input"),m=el("p","tag");
- t.placeholder="اسم الامتحان";q.rows=10;q.placeholder="الصق الأسئلة هنا. كل سؤال برقم، وكل اختيار بحرف: أ) ب) ج) د)";k.placeholder="مفتاح الإجابات بالترتيب، مثال: ب ج أ ب";
- c.appendChild(el("p","sub",own()?"الامتحان هيتنشر للطلاب على طول.":"الامتحان هيستنى موافقة المالك قبل ما يظهر للطلاب."));
- [t,q,k,m].forEach(x=>c.appendChild(x));
- const b=btn("حفظ الامتحان",async()=>{
-  const ti=t.value.trim(),r=parseExam(q.value,k.value);m.className="tag bad";
-  if(!ti){m.textContent="اكتب اسم الامتحان";return}
-  if(r.err){m.textContent=r.err;return}
-  b.disabled=true;
-  try{await rest("POST","exams",{title:ti,questions:r.qs,status:own()?"approved":"pending",creator:""});exams=[];m.className="tag good";m.textContent="تم الحفظ ("+r.qs.length+" سؤال)"+(own()?"":" وفي انتظار موافقة المالك");t.value=q.value=k.value=""}
-  catch(e){m.textContent="تعذر الحفظ: "+e.message}
-  b.disabled=false});
- const row=el("div","row");row.appendChild(b);c.appendChild(row)}
-async function aList(c){
- c.textContent="جاري التحميل...";
- try{await loadExams()}catch(e){c.textContent="تعذر التحميل";return}
- c.textContent="";if(!exams.length)c.appendChild(el("p","sub","مفيش امتحانات."));
- const lb={pending:["قيد المراجعة","warn"],approved:["معتمد","good"],rejected:["مرفوض","bad"]};
- const act=f=>async()=>{try{await f()}catch(e){alert("تعذر التنفيذ: "+e.message)}exams=[];aList(c)};
- exams.forEach(e=>{
-  const d=el("div","ex"),pv=el("div","hide"),s=lb[e.status];
-  d.appendChild(el("p","q",e.title));
-  const sp=el("p","sub",e.questions.length+" سؤال · رفعه: "+e.creator+" · ");sp.appendChild(el("b","tag "+s[1],s[0]));d.appendChild(sp);
-  e.questions.forEach((q,k)=>{pv.appendChild(el("p","tag",(k+1)+". "+q.q));q.o.forEach((o,j)=>pv.appendChild(el("p","tag"+(j===q.a?" good":""),(j===q.a?"✓ ":"   ")+L[j]+") "+o)))});
-  const row=el("div","row");row.appendChild(btn("معاينة",()=>pv.classList.toggle("hide"),1,1));
-  if(own()&&e.status!=="approved")row.appendChild(btn("اعتماد",act(()=>rest("PATCH","exams?id=eq."+e.id,{status:"approved"})),0,1));
-  if(own()&&e.status!=="rejected")row.appendChild(btn("رفض",act(()=>rest("PATCH","exams?id=eq."+e.id,{status:"rejected"})),1,1));
-  if(own()||e.status!=="approved")row.appendChild(btn("حذف",act(async()=>{if(confirm("متأكد من الحذف؟"))await rest("DELETE","exams?id=eq."+e.id)}),1,1));
-  d.appendChild(row);d.appendChild(pv);c.appendChild(d)})}
-async function aSc(c){
- c.textContent="جاري التحميل...";let R=[],P=[],E=[];
- try{R=await rest("GET","results?select=user_id,exam_id,score,total,created_at&order=created_at.desc&limit=500");P=await rest("GET","profiles?select=id,username");E=await rest("GET","exams?select=id,title")}catch(e){c.textContent="تعذر التحميل";return}
- const nm={},tt={};P.forEach(x=>{nm[x.id]=x.username});E.forEach(x=>{tt[x.id]=x.title});
- const s=el("select"),w=el("div","tw");s.appendChild(new Option("كل الامتحانات",""));E.forEach(x=>s.appendChild(new Option(x.title,x.id)));
- const draw=()=>{w.textContent="";const t=el("table"),h=el("tr");["الطالب","الامتحان","الدرجة","التاريخ"].forEach(x=>h.appendChild(el("th",null,x)));t.appendChild(h);
-  R.filter(x=>!s.value||x.exam_id===s.value).forEach(x=>{const r=el("tr");[nm[x.user_id]||"؟",tt[x.exam_id]||"(امتحان محذوف)",x.score+"/"+x.total,new Date(x.created_at).toLocaleDateString("ar-EG")].forEach(v=>r.appendChild(el("td",null,v)));t.appendChild(r)});w.appendChild(t)};
- s.onchange=draw;c.textContent="";c.appendChild(s);c.appendChild(w);draw()}
-async function aUs(c){
- c.textContent="جاري التحميل...";let P=[];
- try{P=await rest("GET","profiles?select=id,username,role,suspended&order=created_at.asc")}catch(e){c.textContent="تعذر التحميل";return}
- c.textContent="";
- P.forEach(u=>{
-  const d=el("div","ex");d.appendChild(el("p","q",u.username));
-  d.appendChild(el("p","sub",{owner:"مالك",admin:"أدمن",student:"طالب"}[u.role]+(u.suspended?" · موقوف":"")));
-  if(u.id!==sess.u){
-   const row=el("div","row"),go=b=>async()=>{try{await rest("PATCH","profiles?id=eq."+u.id,b)}catch(e){alert("تعذر التنفيذ")}aUs(c)};
-   if(u.role==="student")row.appendChild(btn("ترقية لأدمن",go({role:"admin"}),0,1));
-   if(u.role==="admin")row.appendChild(btn("تحويل لطالب",go({role:"student"}),1,1));
-   row.appendChild(btn(u.suspended?"تفعيل":"إيقاف",go({suspended:!u.suspended}),1,1));d.appendChild(row)}
-  c.appendChild(d)})}
-$("tl").onclick=()=>setMode("login");$("tr").onclick=()=>setMode("reg");
-document.querySelectorAll("#rt .tabb").forEach(b=>{b.onclick=()=>setWho(b.dataset.r)});$("fl").onclick=e=>{e.preventDefault();setMode("reg")};
-$("ab").onclick=submitAuth;$("pw").onkeydown=e=>{if(e.key==="Enter")submitAuth()};
-$("out").onclick=()=>{clearInterval(timer);sess=null;me=null;keep();show("auth");setWho("st")};
-$("prev").onclick=()=>{if(i>0){i--;render()}};
-$("next").onclick=()=>{if(i<Q.length-1){i++;render()}else showRes(cur,ans,false)};
-(async()=>{
- try{sess=JSON.parse(localStorage.getItem("qs"))}catch(e){sess=null}
- if(sess&&sess.r){try{await refresh();return enter()}catch(e){sess=null;keep()}}
- show("auth")})();
-</script>
-</body>
-</html>
+// ===== JSONBin: الصق مفتاحك هنا (يفضّل Access Key صلاحياته Read + Update على الـ Bin ده بس) =====
+const KEY='$2a$10$pypH/z55j1WzFK/cD2H1neDDB04D6O23tcLyyG4AAh4DaXzhqxfuu',KH='X-Access-Key',BIN='6ae2ad12ac6210605a5ac66d',LB_BIN='';// حط هنا Bin ID بتاع الأوائل  // لو بتستعمل Access Key غيّر KH إلى 'X-Access-Key'
+// ==========================================================================================
+let dirty=0,last=0;const DB={u:[],e:[],a:[],c:[],n:1},sv=()=>{dirty=1},nid=()=>DB.n++;
+const H=async s=>{try{return[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode('mq'+s)))].map(b=>b.toString(16).padStart(2,'0')).join('')}catch{return'p'+s}};
+const U=(t,r)=>{const u=DB.u.find(x=>x.id==t&&x.on);if(!u)throw Error('سجّل دخول من جديد');if(r&&!r.includes(u.role))throw Error('غير مسموح');return u};
+const nm=id=>(DB.u.find(x=>x.id==id)||{}).name,ex_=i=>DB.e.find(x=>x.id==i),done=u=>DB.a.filter(a=>a.uid==u&&a.done);
+const L={
+async login({n,p,tab}){const h=await H(p),u=DB.u.find(x=>x.name.toLowerCase()==n.trim().toLowerCase()&&x.pass==h&&x.role==tab);if(!u)throw Error('بيانات غير صحيحة');if(!u.on)throw Error('الحساب موقوف');return{t:u.id,name:u.name,role:u.role,ph:u.ph||''}},
+async signup({n,p}){n=n.trim();if(n.length<3||p.length<4)throw Error('الاسم 3 حروف والباسورد 4 على الأقل');if(DB.u.some(x=>x.name.toLowerCase()==n.toLowerCase()))throw Error('الاسم مستخدم');
+DB.u.push({id:'u'+nid(),name:n,pass:await H(p),role:'student',on:true});sv();return L.login({n,p,tab:'student'})},
+exams_list({t}){const u=U(t),d=done(u.id);return DB.e.filter(e=>u.role=='owner'||e.status=='approved'||e.author==u.id).map(e=>{const m=d.filter(a=>a.exam==e.id);return{id:e.id,title:e.title,n:e.qs.length,status:e.status,by:nm(e.author),best:m.length?Math.max(...m.map(a=>a.score)):null,tries:m.length,m:e.m,lk:e.lk,mx:e.mx}}).reverse()},
+exam_get({t,i}){const u=U(t),e=ex_(i);if(!e||!(u.role=='owner'||e.status=='approved'||e.author==u.id))throw Error('الامتحان مش موجود');return{title:e.title,m:e.m,qs:e.qs,key:u.role=='owner'||(u.role=='admin'&&e.author==u.id)?e.key:null}},
+exam_add({t,ti,q,k,m,lk,mx}){const u=U(t,['owner','admin']);if(!q.length||q.length!=k.length||!ti.trim())throw Error('الأسئلة والمفتاح مش متطابقين');DB.e.push({id:nid(),title:ti.trim(),qs:q,key:k,m:+m||0,lk:/^https?:\/\//.test(lk||'')?lk:'',mx:+mx||0,status:u.role=='owner'?'approved':'pending',author:u.id});sv()},
+exam_set({t,i,a}){U(t,['owner']);if(a=='delete'){DB.e=DB.e.filter(e=>e.id!=i);DB.a=DB.a.filter(x=>x.exam!=i)}else ex_(i).status=a=='approve'?'approved':'rejected';sv()},
+att_start({t,i}){const u=U(t,['student']),e=ex_(i);if(!e||e.status!='approved')throw Error('الامتحان مش متاح');if(e.mx&&done(u.id).filter(a=>a.exam==i).length>=e.mx)throw Error('خلصت عدد المحاولات');DB.a=DB.a.filter(x=>x.done||Date.now()-x.created<216e5);const id=nid();DB.a.push({id,uid:u.id,exam:i,ans:{},done:false,created:Date.now()});sv();return id},
+att_ans({t,a,qi,c}){const u=U(t,['student']),x=DB.a.find(z=>z.id==a&&z.uid==u.id&&!z.done);if(!x)throw Error('محاولة غير صالحة');if(qi in x.ans)throw Error('السؤال اتجاوب قبل كده');x.ans[qi]=c;sv();return ex_(x.exam).key[qi]},
+att_end({t,a}){const u=U(t,['student']),x=DB.a.find(z=>z.id==a&&z.uid==u.id&&!z.done);if(!x)throw Error('محاولة غير صالحة');const k=ex_(x.exam).key;x.score=Object.entries(x.ans).filter(([q,c])=>k[q]==c).length;x.total=k.length;x.done=true;sv();return{s:x.score,n:x.total,id:a}},
+my_results({t}){const u=U(t);return done(u.id).map(a=>({id:a.id,exam:a.exam,title:ex_(a.exam).title,s:a.score,n:a.total,d:a.created})).reverse()},
+att_review({t,a}){const u=U(t),x=DB.a.find(z=>z.id==a&&z.uid==u.id&&z.done);if(!x)return null;const e=ex_(x.exam);return{title:e.title,qs:e.qs,key:e.key,ans:x.ans}},
+lbc(i){const b={};DB.a.filter(a=>a.done&&(i==null||a.exam==i)).forEach(a=>{const k=a.uid+'_'+a.exam;b[k]=Math.max(b[k]||0,a.score)});const s={};
+Object.entries(b).forEach(([k,v])=>{const u=DB.u.find(x=>x.id==k.split('_')[0]);if(u&&u.role=='student'&&u.on){const r=s[u.name]||(s[u.name]={name:u.name,s:0,ph:u.ph||''});r.s+=v}});return Object.values(s).sort((x,y)=>y.s-x.s||x.name.localeCompare(y.name)).slice(0,10)},
+async lb({i}){if(!LB_BIN)return L.lbc(i);const r=await fetch(LB+'/latest',{headers:hd()});if(!r.ok)throw Error('مشكلة في بن الأوائل ('+r.status+')');const o=await r.json(),l=i==null?o.t:(o.e[i]||[]);return l.map(x=>({...x,ph:(o.p||{})[x.name]||''}))},
+async pw({t,o,n}){const u=U(t);if(u.pass!=await H(o))throw Error('الباسورد الحالي غلط');if(n.length<4)throw Error('الباسورد قصير');u.pass=await H(n);sv()},
+ann_get({t}){U(t);return DB.ann||''},ann_set({t,m}){U(t,['owner']);DB.ann=m.trim().slice(0,300);sv()},
+scores({t}){U(t,['owner','admin']);const g={};DB.a.filter(a=>a.done).forEach(a=>{const e=ex_(a.exam),k=nm(a.uid)+'|'+e.title,r=g[k]||(g[k]={name:nm(a.uid),title:e.title,best:0,n:a.total,tries:0});r.best=Math.max(r.best,a.score);r.tries++});return Object.values(g).sort((x,y)=>x.name.localeCompare(y.name))},
+users_list({t}){U(t,['owner']);return DB.u.map(u=>({id:u.id,name:u.name,role:u.role,on:u.on}))},
+user_set({t,i,a}){U(t,['owner']);const u=DB.u.find(x=>x.id==i);if(!u||u.role=='owner')throw Error('مينفعش');if(a=='admin'||a=='student')u.role=a;else u.on=a=='on';sv()},
+set_photo({t,ph}){const u=U(t,['student']);if(!/^data:image\/jpeg;base64,[A-Za-z0-9+\/=]+$/.test(ph)||ph.length>60000)throw Error('الصورة مش مقبولة');u.ph=ph;sv()},
+chat_get({t}){U(t);return DB.c.slice(-80).reverse().map(m=>{const u=DB.u.find(x=>x.id==m.uid)||{};return{id:m.id,uid:m.uid,name:u.name||'؟',role:u.role,msg:m.msg}})},
+chat_send({t,m}){const u=U(t);m=m.trim();if(m&&m.length<=500){DB.c.push({id:nid(),uid:u.id,msg:m});DB.c=DB.c.slice(-200);sv()}},
+chat_del({t,i}){const u=U(t);DB.c=DB.c.filter(m=>!(m.id==i&&(m.uid==u.id||u.role!='student')));sv()}};
+const BASE='https://api.jsonbin.io/v3/b/'+BIN,LB='https://api.jsonbin.io/v3/b/'+LB_BIN,hd=()=>({'Content-Type':'application/json',[KH]:KEY,'X-Bin-Meta':'false'});
+async function pull(force){if(!KEY.startsWith('$2'))throw Error('حط مفتاح JSONBin في أول الملف');if(!force&&Date.now()-last<3000)return;
+const r=await fetch(BASE+'/latest',{headers:hd()});if(!r.ok)throw Error(r.status==401||r.status==403?'مفتاح JSONBin غلط أو من غير صلاحية':'مشكلة في الاتصال بالتخزين ('+r.status+')');
+const j=await r.json();for(const k in DB)delete DB[k];Object.assign(DB,{u:[],e:[],a:[],c:[],n:1},j);last=Date.now()}
+async function push(){const r=await fetch(BASE,{method:'PUT',headers:hd(),body:JSON.stringify(DB)});if(!r.ok)throw Error('فشل الحفظ ('+r.status+')');last=Date.now()}
+async function seed(){if(!DB.u.some(u=>u.role=='owner')){DB.u.push({id:'o1',name:'MORA',pass:await H('MORA220'),role:'owner',on:true});dirty=1}}
+const W=new Set(['signup','exam_add','exam_set','att_start','att_ans','att_end','user_set','set_photo','chat_send','chat_del','pw','ann_set']);const LBW=new Set(['att_end','set_photo','exam_set','user_set']);let qq=Promise.resolve();
+async function lbPush(){const o={t:[],e:{},p:{}},f=l=>l.map(x=>{if(x.ph)o.p[x.name]=x.ph;return{name:x.name,s:x.s}});o.t=f(L.lbc(null));DB.e.filter(e=>e.status=='approved').forEach(e=>o.e[e.id]=f(L.lbc(e.id)));
+const r=await fetch(LB,{method:'PUT',headers:hd(),body:JSON.stringify(o)});if(!r.ok)throw Error('فشل حفظ الأوائل ('+r.status+')')}
+function api(f,a){if(f=='lb'&&LB_BIN)return L.lb(a);const r=qq.then(async()=>{await pull(W.has(f));await seed();const x=await L[f](a);if(dirty){dirty=0;try{await push()}catch(e){last=0;throw e}if(LB_BIN&&LBW.has(f))try{await lbPush()}catch(e){toast(e.message)}}return x});qq=r.catch(()=>{});return r}
+let S=JSON.parse(localStorage.getItem('S')||'null'),tab='student',mode='in',view='exams',ex=null,poll=null;
+const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const dt=d=>new Date(d).toLocaleString('ar-EG',{dateStyle:'short',timeStyle:'short'});
+function toast(m){const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(t.h);t.h=setTimeout(()=>t.style.display='none',3000)}
+async function go(f,a={},noT){try{return{d:await api(f,noT?a:{t:S&&S.t,...a})}}catch(e){if(e.message.includes('سجّل دخول'))out();else toast(e.message);return null}}
+function out(){S=null;localStorage.removeItem('S');clearInterval(poll);authView()}
+function authView(){$('#app').innerHTML=`<div class="auth card"><h1>College Lectures📝</h1><div class="tabs">${[['owner','MORA'],['admin','أدمن'],['student','طالب']].map(([k,l])=>`<button class="${tab==k?'on':''}" onclick="tab='${k}';authView()">${l}</button>`).join('')}</div>
+<input id="n" placeholder="الاسم" autocomplete="username"><input id="p" type="password" placeholder="الباسورد" autocomplete="current-password" onkeydown="event.key=='Enter'&&sub()">
+<button class="btn" onclick="sub()">${tab=='student'&&mode=='up'?'إنشاء حساب':'دخول'}</button>
+${tab=='student'?`<p class="m" style="text-align:center;cursor:pointer" onclick="mode=mode=='in'?'up':'in';authView()">${mode=='in'?'معندكش حساب؟ سجّل جديد':'عندك حساب؟ ادخل'}</p>`:''}</div>`}
+async function sub(){const r=await go(tab=='student'&&mode=='up'?'signup':'login',tab=='student'&&mode=='up'?{n:$('#n').value,p:$('#p').value}:{n:$('#n').value,p:$('#p').value,tab},1);
+if(!r)return;S=r.d;localStorage.setItem('S',JSON.stringify(S));view='exams';app()}
+const NAV={student:[['exams','الامتحانات'],['mine','نتايجي'],['top','الأوائل'],['chat','الشات']],admin:[['exams','الامتحانات'],['top','الأوائل'],['chat','الشات'],['add','إضافة امتحان'],['scores','الدرجات']],owner:[['exams','الامتحانات'],['top','الأوائل'],['chat','الشات'],['add','إضافة امتحان'],['scores','الدرجات'],['users','الحسابات']]};
+function app(){clearInterval(poll);$('#app').innerHTML=`<header><b>College Lectures📝</b><b>${av(S.ph,S.name,S.role=='student')} ${esc(S.name)} <span class="tag" style="color:var(--t)">${{owner:'المالك',admin:'أدمن',student:'طالب'}[S.role]}</span></b><span class="acts"><button onclick="tg()">🌓</button><button onclick="pw()">🔑</button><button onclick="out()">خروج</button></span></header>
+<nav>${NAV[S.role].map(([k,l])=>`<button class="${view==k?'on':''}" onclick="view='${k}';app()">${l}</button>`).join('')}</nav><main id="v"></main><input type="file" id="pf" accept="image/*" hidden onchange="pickPh(this)">`;
+({exams:vExams,mine:vMine,top:()=>vTop(),chat:vChat,add:vAdd,scores:vScores,users:vUsers})[view]()}
+const av=(p,n,c)=>{const a=c?` onclick="$('#pf').click()" title="غيّر صورتك"`:'';return p?`<img class="av" src="${esc(p)}"${a}>`:`<span class="av"${a}>${esc([...n][0])}</span>`};
+function pickPh(i){const f=i.files[0];if(!f)return;const im=new Image();im.onload=async()=>{const c=document.createElement('canvas');c.width=c.height=64;const m=Math.min(im.width,im.height);c.getContext('2d').drawImage(im,(im.width-m)/2,(im.height-m)/2,m,m,0,0,64,64);const ph=c.toDataURL('image/jpeg',.6);if(await go('set_photo',{ph})){S.ph=ph;localStorage.setItem('S',JSON.stringify(S));app();toast('اتغيرت صورتك')}};im.onerror=()=>toast('الصورة مش مقبولة');im.src=URL.createObjectURL(f);i.value=''}
+document.documentElement.dataset.th=localStorage.getItem('th')||'';
+function tg(){const d=document.documentElement,n=(d.dataset.th||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'))=='dark'?'light':'dark';d.dataset.th=n;localStorage.setItem('th',n)}
+async function pw(){const o=prompt('الباسورد الحالي'),n=o&&prompt('الباسورد الجديد (4 على الأقل)');if(n&&await go('pw',{o,n}))toast('اتغيّر الباسورد')}
+async function ann(){const m=prompt('نص الإعلان (سيبه فاضي لحذفه)');if(m!=null&&await go('ann_set',{m}))vExams()}
+function conf(){for(let i=0;i<50;i++){const d=document.createElement('i');d.className='cf';d.style.cssText=`left:${Math.random()*100}vw;background:hsl(${Math.random()*360},80%,60%);animation-delay:${Math.random()}s`;document.body.append(d);setTimeout(()=>d.remove(),3800)}}
+let SC=[];function csv(){const t='الطالب,الامتحان,أعلى درجة,من,محاولات\n'+SC.map(x=>[x.name,x.title,x.best,x.n,x.tries].map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+t],{type:'text/csv'}));a.download='scores.csv';a.click()}
+// ---- الامتحانات
+async function vExams(){const[r,an]=await Promise.all([go('exams_list'),go('ann_get')]);if(!r)return;const o=S.role=='owner',st=S.role=='student';
+$('#v').innerHTML=(an&&an.d?`<div class="card" style="border-color:var(--p)">📢 ${esc(an.d)}</div>`:'')+(o?'<button class="sm" onclick="ann()">📢 إعلان</button>':'')+(r.d.length?r.d.map(e=>`<div class="card row"><div><b>${esc(e.title)}</b><div class="m">${e.n} سؤال${e.m?' • ⏱ '+e.m+' د':''}${e.mx?' • أقصى '+e.mx+' محاولة':''}${!st&&e.by?' • '+esc(e.by):''}${e.best!=null?` • أعلى درجة ${e.best}/${e.n} (${e.tries} محاولة)`:''}</div></div><div class="acts">
+${e.status!='approved'?`<span class="tag ${e.status}">${e.status=='pending'?'منتظر الموافقة':'مرفوض'}</span>`:''}
+${st?`<button class="btn" onclick="start(${e.id})">${e.tries?'حاول تاني':'ابدأ'}</button>`:`<button class="sm" onclick="prev(${e.id})">معاينة</button>`}
+${e.lk?`<a class="sm" style="text-decoration:none" target="_blank" rel="noopener" href="${esc(e.lk)}">📎 المحاضرة</a>`:''}${o&&e.status!='approved'?`<button class="sm ok" onclick="act(${e.id},'approve')">اعتماد</button>`:''}${o&&e.status=='pending'?`<button class="sm" onclick="act(${e.id},'reject')">رفض</button>`:''}${o?`<button class="sm no" onclick="confirm('حذف الامتحان وكل نتايجه؟')&&act(${e.id},'delete')">حذف</button>`:''}</div></div>`).join(''):'<p class="m">مفيش امتحانات لسه.</p>')}
+async function act(i,a){if(await go('exam_set',{i,a}))vExams()}
+async function start(i){const[a,b]=await Promise.all([go('exam_get',{i}),go('att_start',{i})]);if(!a||!b)return;if(ex)clearInterval(ex.tm);const sh=z=>z.map(x=>[Math.random(),x]).sort((x,y)=>x[0]-y[0]).map(x=>x[1]);
+ex={att:b.d,title:a.d.title,qs:sh(a.d.qs.map((x,qi)=>{const oi=sh(x.o.map((_,j)=>j));return{q:x.q,o:oi.map(j=>x.o[j]),qi,oi}})),i:0,end:a.d.m?Date.now()+a.d.m*6e4:0};if(ex.end)ex.tm=setInterval(tick,1000);q()}
+function tick(){const t=$('#tm');if(!t||!ex)return clearInterval(ex&&ex.tm);const s=Math.max(0,Math.round((ex.end-Date.now())/1e3));t.textContent='⏱ '+Math.floor(s/60)+':'+String(s%60).padStart(2,'0');if(!s){clearInterval(ex.tm);toast('الوقت خلص');fin()}}
+function q(){const x=ex.qs[ex.i];$('#v').innerHTML=`<div class="card"><div class="m">${esc(ex.title)} — سؤال ${ex.i+1} من ${ex.qs.length} ${ex.end?'<span id="tm" class="tag"></span>':''}</div><div class="bar"><i style="width:${ex.i/ex.qs.length*100}%"></i></div><h3>${esc(x.q)}</h3>${x.o.map((o,j)=>`<button class="opt" id="o${j}" onclick="pick(${j})">${esc(o)}</button>`).join('')}<div id="nx"></div></div>`;if(ex.end)tick()}
+async function pick(j){if(ex.lock)return;ex.lock=1;const x=ex.qs[ex.i],r=await go('att_ans',{a:ex.att,qi:x.qi,c:x.oi[j]});if(!r){ex.lock=0;return}const k=x.oi.indexOf(r.d);
+document.querySelectorAll('.opt').forEach(b=>b.disabled=true);$('#o'+k).classList.add('ok');if(j!=k)$('#o'+j).classList.add('no');ex.lock=0;
+const l=ex.i==ex.qs.length-1;$('#nx').innerHTML=`<button class="btn" onclick="${l?'fin()':'ex.i++;q()'}">${l?'إنهاء وعرض النتيجة':'التالي'}</button>`}
+async function fin(){clearInterval(ex.tm);const r=await go('att_end',{a:ex.att});if(!r)return;const{s,n,id}=r.d;
+$('#v').innerHTML=`<div class="card" style="text-align:center"><div class="m">نتيجتك</div><div class="ring" style="background:conic-gradient(var(--p) ${s/n*100}%,var(--b) 0)"><span>${Math.round(s/n*100)}%</span></div><div class="big">${s} / ${n}</div><div class="acts" style="justify-content:center;margin-top:12px"><button class="btn" onclick="rev(${id})">مراجعة الإجابات</button><button class="sm" onclick="view='exams';app()">رجوع</button></div></div>`;if(s/n>=.8)conf()}
+const revH=(d,w)=>d.qs.map((x,n)=>{const c=(d.ans||{})[n];if(w&&c==d.key[n])return'';return`<div class="card"><b>${n+1}. ${esc(x.q)}</b>${x.o.map((o,j)=>`<div class="opt ${j==d.key[n]?'ok':j==c?'no':''}">${esc(o)}${j==c?' ← إجابتك':''}</div>`).join('')}${c==null&&d.ans?'<div class="m">مجاوبتش</div>':''}</div>`}).join('');
+async function rev(a,w){const r=await go('att_review',{a});if(r&&r.d)$('#v').innerHTML=`<h3>${esc(r.d.title)}</h3>`+`<button class="sm" onclick="rev(${a},${w?0:1})">${w?'كل الأسئلة':'الأخطاء بس'}</button>`+revH(r.d,w)+`<button class="sm" onclick="view='mine';app()">رجوع</button>`}
+async function prev(i){const r=await go('exam_get',{i});if(r)$('#v').innerHTML=`<h3>${esc(r.d.title)}</h3>`+revH({...r.d,ans:null})+`<button class="sm" onclick="app()">رجوع</button>`}
+// ---- نتايجي
+async function vMine(){const r=await go('my_results');if(!r)return;const g={};r.d.forEach(a=>(g[a.exam]??=[]).push(a));
+$('#v').innerHTML=Object.values(g).map(l=>`<div class="card"><div class="row"><b>${esc(l[0].title)}</b><span class="tag">أعلى درجة ${Math.max(...l.map(a=>a.s))}/${l[0].n}</span></div>
+<div class="sp">${l.slice().reverse().map(a=>`<i style="height:${a.s/a.n*100}%"></i>`).join('')}</div><table>${l.map(a=>`<tr><td class="m">${dt(a.d)}</td><td>${a.s}/${a.n}</td></tr>`).join('')}</table><button class="sm" style="margin-top:8px" onclick="rev(${l[0].id})">مراجعة آخر محاولة</button></div>`).join('')||'<p class="m">لسه محلتش أي امتحان.</p>'}
+// ---- الأوائل
+async function vTop(i=null){const[e,r]=await Promise.all([go('exams_list'),go('lb',{i})]);if(!e||!r)return;
+$('#v').innerHTML=`<select onchange="vTop(this.value?+this.value:null)"><option value="">الإجمالي لكل الامتحانات</option>${e.d.filter(x=>x.status=='approved').map(x=>`<option value="${x.id}" ${x.id==i?'selected':''}>${esc(x.title)}</option>`).join('')}</select>
+${r.d.length>2?`<div class="pod">${[1,0,2].map(n=>`<div class="p${n+1}">${n==0?'👑':''}<br>${av(r.d[n].ph,r.d[n].name)}<b>${esc(r.d[n].name)}</b>${r.d[n].s}</div>`).join('')}</div>`:''}<div class="card"><table>${r.d.map((x,n)=>`<tr><td>${['🥇','🥈','🥉'][n]||n+1}</td><td>${av(x.ph,x.name)}${esc(x.name)}</td><td><b>${x.s}</b></td></tr>`).join('')||'<tr><td class="m">لسه مفيش نتايج</td></tr>'}</table></div>`}
+// ---- الشات
+async function vChat(){$('#v').innerHTML=`<div class="card chat"><div id="cl"></div><div class="send"><input id="cm" maxlength="500" placeholder="اكتب رسالة..." onkeydown="event.key=='Enter'&&snd()"><button class="btn" onclick="snd()">إرسال</button></div></div>`;await cl();poll=setInterval(cl,15000)}
+async function cl(){const r=await go('chat_get');const b=$('#cl');if(!r||!b)return;const dn=b.scrollHeight-b.scrollTop-b.clientHeight<60||!b.children.length,adm=S.role!='student';
+b.innerHTML=r.d.reverse().map(m=>`<div class="msg ${m.name==S.name?'me':''}"><div class="row"><b>${esc(m.name)}${m.role!='student'?' ⭐':''}</b>${adm||m.name==S.name?`<button class="sm" onclick="cd(${m.id})">حذف</button>`:''}</div>${esc(m.msg)}</div>`).join('');if(dn)b.scrollTop=b.scrollHeight}
+async function snd(){const i=$('#cm'),m=i.value.trim();if(!m)return;i.value='';await go('chat_send',{m});cl()}
+async function cd(i){await go('chat_del',{i});cl()}
+// ---- إضافة امتحان
+function vAdd(){$('#v').innerHTML=`<div class="card"><input id="ti" placeholder="اسم الامتحان"><input id="mn" type="number" placeholder="مدة الامتحان بالدقايق (اختياري)"><input id="mx" type="number" placeholder="أقصى عدد محاولات (اختياري)"><input id="lk" placeholder="رابط المحاضرة (اختياري)"><textarea id="qt" placeholder="الصق الأسئلة هنا..."></textarea><textarea id="kt" style="min-height:70px" placeholder="مفتاح الإجابات: أ ب ج د ... أو 1-ب 2-أ ..."></textarea>
+<p class="m">كل سؤال في بلوك: السطر الأول السؤال وتحته الاختيارات (سطر لكل اختيار)، وسطر فاضي بين كل سؤال والتاني.${S.role=='admin'?' الامتحان هيستنى موافقة المالك.':''}</p><button class="btn" onclick="addEx()">نشر</button></div>`}
+function parse(t,k){const M={'أ':0,'ا':0,'ب':1,'ج':2,'د':3,'ه':4,a:0,b:1,c:2,d:3,e:4};
+const qs=t.trim().split(/\n\s*\n/).map(b=>b.split('\n').map(s=>s.trim()).filter(Boolean)).filter(b=>b.length>2).map(b=>({q:b[0].replace(/^\d+\s*[.)\-:]\s*/,''),o:b.slice(1).map(s=>s.replace(/^([أابجدهـ]|[a-eA-E]|\d)\s*[).\-:]\s*/,''))}));
+const ks=k.trim().split(/[\s,،;]+/).filter(Boolean).map(x=>{x=x.replace(/^\d+[-.:)]+/,'').toLowerCase();return x in M?M[x]:/^\d$/.test(x)?+x-1:-1});return{qs,ks}}
+async function addEx(){const{qs,ks}=parse($('#qt').value,$('#kt').value);
+if(!qs.length)return toast('مفيش أسئلة صالحة');if(qs.length!=ks.length)return toast(`عدد الأسئلة ${qs.length} ومفتاح الإجابات ${ks.length}`);
+const bad=ks.findIndex((x,i)=>x<0||x>=qs[i].o.length);if(bad>=0)return toast('إجابة غلط في سؤال '+(bad+1));
+if(await go('exam_add',{ti:$('#ti').value,q:qs,k:ks,m:$('#mn').value,lk:$('#lk').value,mx:$('#mx').value})){toast(S.role=='owner'?'اتنشر للطلاب':'اتبعت لموافقة المالك');view='exams';app()}}
+// ---- الدرجات والحسابات
+async function vScores(){const r=await go('scores');if(!r)return;SC=r.d;$('#v').innerHTML=`<button class="sm" onclick="csv()">⬇ تصدير CSV</button><div class="card" style="overflow-x:auto"><table><tr><th>الطالب</th><th>الامتحان</th><th>أعلى درجة</th><th>محاولات</th></tr>${r.d.map(x=>`<tr><td>${esc(x.name)}</td><td>${esc(x.title)}</td><td>${x.best}/${x.n}</td><td>${x.tries}</td></tr>`).join('')||'<tr><td class="m">لسه مفيش نتايج</td></tr>'}</table></div>`}
+async function vUsers(){const r=await go('users_list');if(!r)return;$('#v').innerHTML=r.d.filter(u=>u.role!='owner').map(u=>`<div class="card row"><div><b>${esc(u.name)}</b> <span class="tag">${u.role=='admin'?'أدمن':'طالب'}</span>${u.on?'':' <span class="tag rejected">موقوف</span>'}</div><div class="acts"><button class="sm" onclick="us('${u.id}','${u.role=='admin'?'student':'admin'}')">${u.role=='admin'?'رجّعه طالب':'رقّيه أدمن'}</button><button class="sm ${u.on?'no':'ok'}" onclick="us('${u.id}','${u.on?'off':'on'}')">${u.on?'إيقاف':'تفعيل'}</button></div></div>`).join('')||'<p class="m">مفيش حسابات.</p>'}
+async function us(i,a){if(await go('user_set',{i,a}))vUsers()}
+S?app():authView();
+</script></body></html>
