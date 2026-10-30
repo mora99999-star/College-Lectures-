@@ -55,7 +55,7 @@ const U=(t,r)=>{const u=DB.u.find(x=>x.id==t&&x.on);if(!u)throw Error('سجّل 
 const nm=id=>(DB.u.find(x=>x.id==id)||{}).name,ex_=i=>DB.e.find(x=>x.id==i),done=u=>DB.a.filter(a=>a.uid==u&&a.done);
 const L={
 async login({n,p,tab}){const h=await H(p),u=DB.u.find(x=>x.name.toLowerCase()==n.trim().toLowerCase()&&x.pass==h&&x.role==tab);if(!u)throw Error('بيانات غير صحيحة');if(!u.on)throw Error('الحساب موقوف');return{t:u.id,name:u.name,role:u.role,ph:u.ph||''}},
-async signup({n,p}){n=n.trim();if(n.length<3||p.length<4)throw Error('الاسم 3 حروف والباسورد 4 على الأقل');if(DB.u.some(x=>x.name.toLowerCase()==n.toLowerCase()))throw Error('الاسم مستخدم');
+async signup({n,p}){n=n.trim();if(n.length<3||p.length<4)throw Error('الاسم 3 حروف والباسورد 4 على الأقل');if(DB.u.some(x=>x.name.toLowerCase()==n.toLowerCase())||/^(ad|ow)-/i.test(n))throw Error('الاسم مستخدم');
 DB.u.push({id:'u'+nid(),name:n,pass:await H(p),role:'student',on:true});sv();return L.login({n,p,tab:'student'})},
 exams_list({t}){const u=U(t),d=done(u.id);return DB.e.filter(e=>u.role=='owner'||e.status=='approved'||e.author==u.id).map(e=>{const m=d.filter(a=>a.exam==e.id);return{id:e.id,title:e.title,n:e.qs.length,status:e.status,by:nm(e.author),best:m.length?Math.max(...m.map(a=>a.score)):null,tries:m.length,m:e.m,lk:e.lk,mx:e.mx}}).reverse()},
 exam_get({t,i}){const u=U(t),e=ex_(i);if(!e||!(u.role=='owner'||e.status=='approved'||e.author==u.id))throw Error('الامتحان مش موجود');return{title:e.title,m:e.m,qs:e.qs,key:u.role=='owner'||(u.role=='admin'&&e.author==u.id)?e.key:null}},
@@ -72,7 +72,7 @@ async lb({i}){if(!LB_BIN)return L.lbc(i);const r=await fetch(LB+'/latest',{heade
 async pw({t,o,n}){const u=U(t);if(u.pass!=await H(o))throw Error('الباسورد الحالي غلط');if(n.length<4)throw Error('الباسورد قصير');u.pass=await H(n);sv()},
 ann_get({t}){U(t);return DB.ann||''},ann_set({t,m}){U(t,['owner']);DB.ann=m.trim().slice(0,300);sv()},
 scores({t}){U(t,['owner','admin']);const g={};DB.a.filter(a=>a.done).forEach(a=>{const e=ex_(a.exam),k=nm(a.uid)+'|'+e.title,r=g[k]||(g[k]={name:nm(a.uid),title:e.title,best:0,n:a.total,tries:0});r.best=Math.max(r.best,a.score);r.tries++});return Object.values(g).sort((x,y)=>x.name.localeCompare(y.name))},
-users_list({t}){U(t,['owner']);return DB.u.map(u=>({id:u.id,name:u.name,role:u.role,on:u.on}))},
+users_list({t}){const me=U(t,['owner','admin']);return DB.u.filter(u=>me.role=='owner'||u.role=='student').map(u=>({id:u.id,name:u.name,role:u.role,on:u.on}))},
 user_set({t,i,a}){U(t,['owner']);const u=DB.u.find(x=>x.id==i);if(!u||u.role=='owner')throw Error('مينفعش');if(a=='admin'||a=='student')u.role=a;else u.on=a=='on';sv()},
 set_photo({t,ph}){const u=U(t,['student']);if(!/^data:image\/jpeg;base64,[A-Za-z0-9+\/=]+$/.test(ph)||ph.length>60000)throw Error('الصورة مش مقبولة');u.ph=ph;sv()},
 chat_get({t}){U(t);return DB.c.slice(-80).reverse().map(m=>{const u=DB.u.find(x=>x.id==m.uid)||{};return{id:m.id,uid:m.uid,name:u.name||'؟',role:u.role,msg:m.msg}})},
@@ -100,11 +100,11 @@ function authView(){$('#app').innerHTML=`<div class="auth card"><h1>College Lect
 ${tab=='student'?`<p class="m" style="text-align:center;cursor:pointer" onclick="mode=mode=='in'?'up':'in';authView()">${mode=='in'?'معندكش حساب؟ سجّل جديد':'عندك حساب؟ ادخل'}</p>`:''}</div>`}
 async function sub(){const r=await go(tab=='student'&&mode=='up'?'signup':'login',tab=='student'&&mode=='up'?{n:$('#n').value,p:$('#p').value}:{n:$('#n').value,p:$('#p').value,tab},1);
 if(!r)return;S=r.d;localStorage.setItem('S',JSON.stringify(S));view='exams';app()}
-const NAV={student:[['exams','الامتحانات'],['mine','نتايجي'],['top','الأوائل'],['chat','الشات']],admin:[['exams','الامتحانات'],['top','الأوائل'],['chat','الشات'],['add','إضافة امتحان'],['scores','الدرجات']],owner:[['exams','الامتحانات'],['top','الأوائل'],['chat','الشات'],['add','إضافة امتحان'],['scores','الدرجات'],['users','الحسابات']]};
+const NAV={student:[['exams','الامتحانات'],['mine','نتايجي'],['top','الأوائل'],['chat','الشات']],admin:[['exams','الامتحانات'],['top','الأوائل'],['chat','الشات'],['add','إضافة امتحان'],['scores','الدرجات'],['users','الطلاب']],owner:[['exams','الامتحانات'],['top','الأوائل'],['chat','الشات'],['add','إضافة امتحان'],['scores','الدرجات'],['users','الحسابات']]};
 function app(){clearInterval(poll);$('#app').innerHTML=`<header><b>College Lectures📝</b><b>${av(S.ph,S.name,S.role=='student')} ${esc(S.name)} <span class="tag" style="color:var(--t)">${{owner:'المالك',admin:'أدمن',student:'طالب'}[S.role]}</span></b><span class="acts"><button onclick="tg()">🌓</button><button onclick="pw()">🔑</button><button onclick="out()">خروج</button></span></header>
 <nav>${NAV[S.role].map(([k,l])=>`<button class="${view==k?'on':''}" onclick="view='${k}';app()">${l}</button>`).join('')}</nav><main id="v"></main><input type="file" id="pf" accept="image/*" hidden onchange="pickPh(this)">`;
 ({exams:vExams,mine:vMine,top:()=>vTop(),chat:vChat,add:vAdd,scores:vScores,users:vUsers})[view]()}
-const av=(p,n,c)=>{const a=c?` onclick="$('#pf').click()" title="غيّر صورتك"`:'';return p?`<img class="av" src="${esc(p)}"${a}>`:`<span class="av"${a}>${esc([...n][0])}</span>`};
+const tag=(r,n)=>r=='owner'?'OW-'+n+' '+'⭐'.repeat(7):r=='admin'?'ad-'+n+' '+'⭐'.repeat(3):n;const av=(p,n,c)=>{const a=c?` onclick="$('#pf').click()" title="غيّر صورتك"`:'';return p?`<img class="av" src="${esc(p)}"${a}>`:`<span class="av"${a}>${esc([...n][0])}</span>`};
 function pickPh(i){const f=i.files[0];if(!f)return;const im=new Image();im.onload=async()=>{const c=document.createElement('canvas');c.width=c.height=64;const m=Math.min(im.width,im.height);c.getContext('2d').drawImage(im,(im.width-m)/2,(im.height-m)/2,m,m,0,0,64,64);const ph=c.toDataURL('image/jpeg',.6);if(await go('set_photo',{ph})){S.ph=ph;localStorage.setItem('S',JSON.stringify(S));app();toast('اتغيرت صورتك')}};im.onerror=()=>toast('الصورة مش مقبولة');im.src=URL.createObjectURL(f);i.value=''}
 document.documentElement.dataset.th=localStorage.getItem('th')||'';
 function tg(){const d=document.documentElement,n=(d.dataset.th||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'))=='dark'?'light':'dark';d.dataset.th=n;localStorage.setItem('th',n)}
@@ -142,7 +142,7 @@ ${r.d.length>2?`<div class="pod">${[1,0,2].map(n=>`<div class="p${n+1}">${n==0?'
 // ---- الشات
 async function vChat(){$('#v').innerHTML=`<div class="card chat"><div id="cl"></div><div class="send"><input id="cm" maxlength="500" placeholder="اكتب رسالة..." onkeydown="event.key=='Enter'&&snd()"><button class="btn" onclick="snd()">إرسال</button></div></div>`;await cl();poll=setInterval(cl,15000)}
 async function cl(){const r=await go('chat_get');const b=$('#cl');if(!r||!b)return;const dn=b.scrollHeight-b.scrollTop-b.clientHeight<60||!b.children.length,adm=S.role!='student';
-b.innerHTML=r.d.reverse().map(m=>`<div class="msg ${m.name==S.name?'me':''}"><div class="row"><b>${esc(m.name)}${m.role!='student'?' ⭐':''}</b>${adm||m.name==S.name?`<button class="sm" onclick="cd(${m.id})">حذف</button>`:''}</div>${esc(m.msg)}</div>`).join('');if(dn)b.scrollTop=b.scrollHeight}
+b.innerHTML=r.d.reverse().map(m=>`<div class="msg ${m.name==S.name?'me':''}"><div class="row"><b>${esc(tag(m.role,m.name))}</b>${adm||m.name==S.name?`<button class="sm" onclick="cd(${m.id})">حذف</button>`:''}</div>${esc(m.msg)}</div>`).join('');if(dn)b.scrollTop=b.scrollHeight}
 async function snd(){const i=$('#cm'),m=i.value.trim();if(!m)return;i.value='';await go('chat_send',{m});cl()}
 async function cd(i){await go('chat_del',{i});cl()}
 // ---- إضافة امتحان
@@ -157,7 +157,7 @@ const bad=ks.findIndex((x,i)=>x<0||x>=qs[i].o.length);if(bad>=0)return toast('إ
 if(await go('exam_add',{ti:$('#ti').value,q:qs,k:ks,m:$('#mn').value,lk:$('#lk').value,mx:$('#mx').value})){toast(S.role=='owner'?'اتنشر للطلاب':'اتبعت لموافقة المالك');view='exams';app()}}
 // ---- الدرجات والحسابات
 async function vScores(){const r=await go('scores');if(!r)return;SC=r.d;$('#v').innerHTML=`<button class="sm" onclick="csv()">⬇ تصدير CSV</button><div class="card" style="overflow-x:auto"><table><tr><th>الطالب</th><th>الامتحان</th><th>أعلى درجة</th><th>محاولات</th></tr>${r.d.map(x=>`<tr><td>${esc(x.name)}</td><td>${esc(x.title)}</td><td>${x.best}/${x.n}</td><td>${x.tries}</td></tr>`).join('')||'<tr><td class="m">لسه مفيش نتايج</td></tr>'}</table></div>`}
-async function vUsers(){const r=await go('users_list');if(!r)return;$('#v').innerHTML=r.d.filter(u=>u.role!='owner').map(u=>`<div class="card row"><div><b>${esc(u.name)}</b> <span class="tag">${u.role=='admin'?'أدمن':'طالب'}</span>${u.on?'':' <span class="tag rejected">موقوف</span>'}</div><div class="acts"><button class="sm" onclick="us('${u.id}','${u.role=='admin'?'student':'admin'}')">${u.role=='admin'?'رجّعه طالب':'رقّيه أدمن'}</button><button class="sm ${u.on?'no':'ok'}" onclick="us('${u.id}','${u.on?'off':'on'}')">${u.on?'إيقاف':'تفعيل'}</button></div></div>`).join('')||'<p class="m">مفيش حسابات.</p>'}
+async function vUsers(){const r=await go('users_list');if(!r)return;$('#v').innerHTML=r.d.filter(u=>u.role!='owner').map(u=>`<div class="card row"><div><b>${esc(u.name)}</b> <span class="tag">${u.role=='admin'?'أدمن':'طالب'}</span>${u.on?'':' <span class="tag rejected">موقوف</span>'}</div><div class="acts"><button class="sm" onclick="us('${u.id}','${u.role=='admin'?'student':'admin'}')">${u.role=='admin'?'رجّعه طالب':'رقّيه أدمن'}</button><button class="sm ${u.on?'no':'ok'}" onclick="us('${u.id}','${u.on?'off':'on'}')">${u.on?'إيقاف':'تفعيل'}</button></div></div>`).join('')||'<p class="m">مفيش حسابات.</p>';if(S.role!='owner')document.querySelectorAll('#v .acts').forEach(x=>x.remove())}
 async function us(i,a){if(await go('user_set',{i,a}))vUsers()}
 S?app():authView();
 </script></body></html>
