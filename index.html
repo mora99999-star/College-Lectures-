@@ -43,6 +43,21 @@ table{width:100%;border-collapse:collapse}td,th{padding:8px;border-bottom:1px so
 .cf{position:fixed;top:-10px;width:9px;height:14px;z-index:9;animation:cfa 2.5s linear forwards}@keyframes cfa{to{transform:translateY(105vh) rotate(720deg)}}
 .sp{display:flex;align-items:flex-end;gap:3px;height:36px;margin:8px 0}.sp i{flex:1;max-width:14px;background:var(--p);border-radius:3px 3px 0 0;min-height:3px}
 [data-th=dark]{--bg:#0e1120;--c:#171b2f;--t:#e8ebf7;--m:#98a0c0;--b:#262b47}[data-th=light]{--bg:#f3f5fb;--c:#fff;--t:#1b2240;--m:#6b7390;--b:#e2e6f1}
+/* ثيم نار هادي */
+:root:not([data-th=light]){--bg:#15111a;--c:#1f1a26;--t:#efe6df;--m:#a99d96;--b:#33292f;--p:#e8590c}
+[data-th=light]{--bg:#f6efe7;--c:#fffaf4;--t:#2d2320;--m:#85766d;--b:#eadccf;--p:#c2410c}
+header{background:linear-gradient(135deg,#7f1d1d,#b9420f,#d97706);animation:glow 3s ease-in-out infinite alternate}
+@keyframes glow{from{box-shadow:0 4px 16px #ea580c33}to{box-shadow:0 4px 30px #f59e0b66}}
+.bg i{opacity:.2}.bg i:nth-child(1){background:#ea580c}.bg i:nth-child(2){background:#dc2626}.bg i:nth-child(3){background:#f59e0b}
+.em{position:absolute;bottom:-20px;border-radius:50%;background:#fbbf24;box-shadow:0 0 10px 3px #f97316;opacity:0;animation:rise linear infinite}
+@keyframes rise{0%{transform:translate(0,0) scale(1);opacity:0}10%{opacity:.85}100%{transform:translate(var(--dx),-105vh) scale(.2);opacity:0}}
+.auth h1{background:linear-gradient(90deg,#fbbf24,#f97316,#ef4444);-webkit-background-clip:text;background-clip:text;color:transparent;animation:fk 2.5s ease-in-out infinite alternate}
+@keyframes fk{to{filter:drop-shadow(0 0 8px #f97316)}}
+nav button.on,.tabs .on{background:linear-gradient(135deg,#ea580c,#dc2626);box-shadow:0 0 14px #ea580c66}
+.bar i{background:linear-gradient(90deg,#f59e0b,#ef4444)}
+.btn:hover,.sm:hover{filter:brightness(1.12);box-shadow:0 0 14px #f9731666}
+.card:hover{box-shadow:0 8px 28px #ea580c22}.msg.me{background:#ea580c26}.av{background:#c2410c}
+@media(prefers-reduced-motion:reduce){.em,.bg i,header,.auth h1{animation:none}}
 </style></head><body>
 <div class="bg"><i></i><i></i><i></i></div><div id="app"></div><div id="toast"></div>
 <script>
@@ -109,9 +124,9 @@ function app(){clearInterval(poll);$('#app').innerHTML=`<header><b>College Lectu
 ({exams:vExams,mine:vMine,fav:vFav,top:()=>vTop(),chat:vChat,add:vAdd,scores:vScores,users:vUsers})[view]();badge()}
 const tag=(r,n)=>r=='owner'?'OW-'+n+' '+'⭐'.repeat(7):r=='admin'?'ad-'+n+' '+'⭐'.repeat(3):n;const av=(p,n,c)=>{const a=c?` onclick="$('#pf').click()" title="غيّر صورتك"`:'';return p?`<img class="av" src="${esc(p)}"${a}>`:`<span class="av"${a}>${esc([...n][0])}</span>`};
 function pickPh(i){const f=i.files[0];if(!f)return;const im=new Image();im.onload=async()=>{const c=document.createElement('canvas');c.width=c.height=64;const m=Math.min(im.width,im.height);c.getContext('2d').drawImage(im,(im.width-m)/2,(im.height-m)/2,m,m,0,0,64,64);const ph=c.toDataURL('image/jpeg',.6);if(await go('set_photo',{ph})){S.ph=ph;localStorage.setItem('S',JSON.stringify(S));app();toast('اتغيرت صورتك')}};im.onerror=()=>toast('الصورة مش مقبولة');im.src=URL.createObjectURL(f);i.value=''}
-document.documentElement.dataset.th=localStorage.getItem('th')||'';
+document.documentElement.dataset.th=localStorage.getItem('th')||'';(()=>{const b=document.querySelector('.bg');for(let i=0;i<22;i++){const e=document.createElement('span');e.className='em';e.style.cssText=`left:${Math.random()*100}%;animation-duration:${6+Math.random()*8}s;animation-delay:${-Math.random()*10}s;--dx:${(Math.random()-.5)*120}px;width:${3+Math.random()*5}px;height:${3+Math.random()*5}px`;b.append(e)}})();
 async function sync(){const r=await go('me');if(r&&r.d.role!=S.role){S.role=r.d.role;localStorage.setItem('S',JSON.stringify(S));view='exams';app()}}
-function tg(){const d=document.documentElement,n=(d.dataset.th||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'))=='dark'?'light':'dark';d.dataset.th=n;localStorage.setItem('th',n)}
+function tg(){const d=document.documentElement,n=(d.dataset.th||'dark')=='dark'?'light':'dark';d.dataset.th=n;localStorage.setItem('th',n)}
 async function pw(){const o=prompt('الباسورد الحالي'),n=o&&prompt('الباسورد الجديد (4 على الأقل)');if(n&&await go('pw',{o,n}))toast('اتغيّر الباسورد')}
 async function ann(){const m=prompt('نص الإعلان (سيبه فاضي لحذفه)');if(m!=null&&await go('ann_set',{m}))vExams()}
 function conf(){for(let i=0;i<50;i++){const d=document.createElement('i');d.className='cf';d.style.cssText=`left:${Math.random()*100}vw;background:hsl(${Math.random()*360},80%,60%);animation-delay:${Math.random()}s`;document.body.append(d);setTimeout(()=>d.remove(),3800)}}
